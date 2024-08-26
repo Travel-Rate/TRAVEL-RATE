@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: rate
+  sql:
+    init:
+      mode: always #always?? ??? ??
+      data-locations: classpath:data.sql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/travel_rate
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      generate-ddl: true
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    generate-ddl: true
+    database: mysql # ??? ddl error
+  profiles:
+    include: secret
