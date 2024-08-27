@@ -3,8 +3,8 @@ spring:
     name: rate
   sql:
     init:
-      mode: always #always에서 변경한 상태
-#      data-locations: classpath:data.sql
+      mode: always #always?? ??? ??
+      data-locations: classpath:data.sql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/travel_rate
@@ -18,6 +18,6 @@ spring:
         format_sql: true
     show-sql: true
     generate-ddl: true
-    database: mysql # 없으면 ddl error
+    database: mysql # ??? ddl error
   profiles:
     include: secret
