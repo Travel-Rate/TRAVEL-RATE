@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @Component
 public class ExchangeUtils {
-//    한국 수출입은행 API호출
 
 //    API 인증키
     @Value("${exchange-authkey}")
@@ -20,6 +19,7 @@ public class ExchangeUtils {
     @Value("${exchange-data}")
     private String data;
 
+    // 한국 수출입은행 API호출
     public JsonNode getExchangeDataSync(){
 
         // 인코딩 모드 None 설정
@@ -43,6 +43,7 @@ public class ExchangeUtils {
         return parseJson(responseBody);
     }
 
+    // 예외 처리
     private JsonNode parseJson(String responseBody){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
