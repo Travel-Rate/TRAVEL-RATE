@@ -4,16 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 
-@Entity
 @Getter
 @NoArgsConstructor
-public class User {
-//    user 엔티티
-
+@Entity
+public class Currency {
     @Id
-    private String email;
-
-//    ----------------------------------- 기준선
-
+    private String code;
+    @NotNull
+    private String name;
 }
