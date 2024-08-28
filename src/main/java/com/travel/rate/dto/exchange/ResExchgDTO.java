@@ -13,7 +13,7 @@ public class ResExchgDTO {
     private Integer result;         // 결과
     private String cur_unit;        // 통화코드
     private String cur_nm;          // 국가/통화명
-    private String ttd;             // 전신환(송금) 받으실 때
+    private String ttb;             // 전신환(송금) 받으실 때
     private String tts;             // 전신환(송금) 보내실 때
     private String deal_bas_r;      // 매매 기준율
     private String bkpr;            // 장부가격
