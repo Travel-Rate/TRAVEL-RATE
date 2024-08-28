@@ -1,18 +1,16 @@
 spring:
   application:
     name: rate
-  sql:
-    init:
-      mode: always #always에서 변경한 상태
-#      data-locations: classpath:data.sql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/travel_rate
+    url: http://travel-rate01.c6oo6vukkvgd.ap-northeast-2.rds.amazonaws.com/
   jpa:
     defer-datasource-initialization: true
     hibernate:
       generate-ddl: true
-      ddl-auto: update
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     properties:
       hibernate:
         format_sql: true
