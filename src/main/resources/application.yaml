@@ -7,7 +7,6 @@ spring:
 #      data-locations: classpath:data.sql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/travel_rate
   jpa:
     defer-datasource-initialization: true
     hibernate:
