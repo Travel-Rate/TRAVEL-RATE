@@ -1,4 +1,4 @@
-package com.travel.rate.dto.user;
+package com.travel.rate.dto.member;
 
 import lombok.Getter;
 
