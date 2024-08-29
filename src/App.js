@@ -2,21 +2,16 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const user = false
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className='nav-bar'>
+          <img src="logo" alt="" />
+          <div>여행지 추천</div>
+          <div>목표환율 설정</div>
+          <div>{user? '로그인' : '로그아웃'}</div>
+        </div>
       </header>
     </div>
   );
