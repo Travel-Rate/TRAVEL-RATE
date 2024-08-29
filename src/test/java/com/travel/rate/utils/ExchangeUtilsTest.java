@@ -37,16 +37,16 @@ public class ExchangeUtilsTest {
 //    @Test
     void getExchangeDataSyncTest(){
 
-        JsonNode result = exchangeUtils.getExchangeDataSync();
-        assert result != null;
+/*        JsonNode result = exchangeUtils.getExchangeDataSync();
+        assert result != null;*/
 
     }
 
 //    @Test
     void testGetExchangeDataAsDtoList(){
-        List<ResExchgDTO> resExchgDTOS = exchangeUtils.getExchangeDataAsDtoList();
+/*        List<ResExchgDTO> resExchgDTOS = exchangeUtils.getExchangeDataAsDtoList();
         Assert.notEmpty(resExchgDTOS, "notEmpty");
-        Assert.noNullElements(resExchgDTOS, "null인 객체가 없었으면 좋겠어");
+        Assert.noNullElements(resExchgDTOS, "null인 객체가 없었으면 좋겠어");*/
     }
 
 //    @Test

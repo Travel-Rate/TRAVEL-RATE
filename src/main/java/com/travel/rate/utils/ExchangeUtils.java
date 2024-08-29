@@ -6,12 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.rate.dto.exchange.ResExchgDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,7 +45,7 @@ public class ExchangeUtils {
 
         // WebClient 생성
         WebClient webClient = WebClient.builder().uriBuilderFactory(factory).build();
-        String responseBody = webClient.get()
+        String responsBody = webClient.get()
                 .uri(builder -> builder
                         .scheme("https")
                         .host("www.koreaexim.go.kr")
@@ -51,9 +56,19 @@ public class ExchangeUtils {
                         .build())
                 .retrieve()
                 .bodyToMono(String.class)
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(2))     // 2초 뒤에 최대 3회 재시도
+                        .filter(throwable -> throwable instanceof WebClientResponseException
+                                || throwable instanceof java.net.SocketException) // 이 에러가 떴을때
+                        .onRetryExhaustedThrow(((retryBackoffSpec, retrySignal) ->
+                                retrySignal.failure()))
+                )
+                .doOnError(throwable ->
+                        // 재 시도 실패 시 로그
+                        System.out.println("재시도 실패: "+throwable.getMessage())
+                )
                 .block();
 
-        return parseJson(responseBody);
+        return parseJson(responsBody);
     }
 
     // getExchangeDataSync()에서 가저온 결과 값(String responseBody)을 Json 형식으로
