@@ -26,12 +26,33 @@ const ExchangeRatio = () => {
                     <div className="lower-side-inner-country1">
                         <div>
                         <img src="" alt="" />
-                        <span></span>
+                        <span>국가명 통화코드 환율</span>
                         </div>
                         <div>
                             <img src="" alt="modify" />
                             <img src="" alt="delete" />
                         </div>
+                        <hr />
+                        <div>
+                        <img src="" alt="" />
+                        <span>국가명 통화코드 환율</span>
+                        </div>
+
+                        <div>
+                            <img src="" alt="modify" />
+                            <img src="" alt="delete" />
+                        </div>
+                        <hr />
+                        <div>
+                        <img src="" alt="" />
+                        <span>국가명 통화코드 환율</span>
+                        </div>
+                    
+                        <div>
+                            <img src="" alt="modify" />
+                            <img src="" alt="delete" />
+                        </div>
+                        <hr />
                     </div>
                 </div>
             </body>
