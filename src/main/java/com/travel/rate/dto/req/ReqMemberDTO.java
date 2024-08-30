@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReqMemberDTO {
-//    user 정보를 요청받는 DTO
+//    user 정보를 받는 DTO
 
 //    ----------------------------------- 기준선
 
