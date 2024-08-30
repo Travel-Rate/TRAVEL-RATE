@@ -1,6 +1,6 @@
 package com.travel.rate.service;
 
-import com.travel.rate.dto.exchange.ResExchgDTO;
+import com.travel.rate.dto.res.ResExchgDTO;
 import com.travel.rate.utils.ExchangeUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

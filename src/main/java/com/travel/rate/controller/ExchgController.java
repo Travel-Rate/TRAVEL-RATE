@@ -1,6 +1,6 @@
 package com.travel.rate.controller;
 
-import com.travel.rate.dto.exchange.ResExchgDTO;
+import com.travel.rate.dto.res.ResExchgDTO;
 import com.travel.rate.service.ExchgService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

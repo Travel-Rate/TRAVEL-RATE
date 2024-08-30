@@ -3,15 +3,13 @@ package com.travel.rate.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.travel.rate.dto.exchange.ResExchgDTO;
+import com.travel.rate.dto.res.ResExchgDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.util.DefaultUriBuilderFactory;
-import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 
 import java.io.IOException;
@@ -34,7 +32,7 @@ public class ExchangeUtils {
     @Value("${exchange-data}")
     private String data;
 
-    private final String serchdate = getSearchdate();
+    private final String searchdate = getSearchdate();
 
     // 한국 수출입은행 API호출
     public JsonNode getExchangeDataSync(){
@@ -51,7 +49,7 @@ public class ExchangeUtils {
                         .host("www.koreaexim.go.kr")
                         .path("/site/program/financial/exchangeJSON")
                         .queryParam("authkey", authkey)
-                        .queryParam("serchdate", serchdate)
+                        .queryParam("searchdate", searchdate)
                         .queryParam("data", data)
                         .build())
                 .retrieve()
