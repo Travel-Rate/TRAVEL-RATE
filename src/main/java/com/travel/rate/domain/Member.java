@@ -13,8 +13,12 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class Member {
-//    user 엔티티
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long memId;
+
+    @Column(unique = true)
+    @NotNull
     private String email;
 
     @NotNull
@@ -26,7 +30,5 @@ public class Member {
     @JsonIgnore
     @OneToMany(mappedBy = "member")// 순환참조 막기
     private List<TargetRate> targetRateList;
-
-//    ----------------------------------- 기준선
 
 }
