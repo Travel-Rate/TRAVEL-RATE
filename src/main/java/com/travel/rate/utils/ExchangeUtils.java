@@ -46,7 +46,7 @@ public class ExchangeUtils {
                         .host("www.koreaexim.go.kr")
                         .path("/site/program/financial/exchangeJSON")
                         .queryParam("authkey", authkey)
-                        .queryParam("serchdate", serchdate)
+                        .queryParam("searchdate", serchdate)
                         .queryParam("data", data)
                         .build())
                 .retrieve()
