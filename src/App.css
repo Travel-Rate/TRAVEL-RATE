@@ -1,16 +1,7 @@
 .nav-bar {
   display: flex;
   align-content: space-between;
+  align-items: center;
   width: 100vw;
   height: 10vh;
-  align-items: center;
-}
-
-.nav-nar-inner-logo-img {
-  display: inline-block;
-}
-
-.nav-bar-inner-recomm , .nav-bar-inner-exchange, .nav-bar-inner-log{
-  display: inline-block;
-
 }
