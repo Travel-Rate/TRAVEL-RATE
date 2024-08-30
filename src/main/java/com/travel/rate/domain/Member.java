@@ -18,6 +18,11 @@ import java.util.List;
 public class Member {
 //    user 엔티티
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long memId;
+
+    @Column(unique = true)
+    @NotNull
     private String email;
 
     @NotNull

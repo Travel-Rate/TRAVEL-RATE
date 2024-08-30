@@ -43,7 +43,7 @@ public class ExchangeUtils {
 
         // WebClient 생성
         WebClient webClient = WebClient.builder().uriBuilderFactory(factory).build();
-        String responsBody = webClient.get()
+        String responseBody = webClient.get()
                 .uri(builder -> builder
                         .scheme("https")
                         .host("www.koreaexim.go.kr")
@@ -66,7 +66,7 @@ public class ExchangeUtils {
                 )
                 .block();
 
-        return parseJson(responsBody);
+        return parseJson(responseBody);
     }
 
     // getExchangeDataSync()에서 가저온 결과 값(String responseBody)을 Json 형식으로

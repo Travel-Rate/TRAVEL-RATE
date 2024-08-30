@@ -9,25 +9,28 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(name = "target_rate")
 public class TargetRate {
     @Id
-    private Long num;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long tagId;
+
     private float chgRate;
+
     private boolean rateRange;
+
     private boolean count;
+
     private boolean state;
 
     @ManyToOne
-    @JoinColumn(name = "con_num")
+    @JoinColumn(name = "ctr_id")
     private Country country;
 
     @ManyToOne
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "mem_id")
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "cur_code")
-    private Currency currency;
 }
 
 

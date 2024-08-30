@@ -6,16 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 
+@Entity
 @Getter
 @NoArgsConstructor
-@Entity
-public class Currency {
+public class Continent {
     @Id
-    private Long curId;
-
-    @NotNull
-    private String code;
+    private Long ctntId;
 
     @NotNull
     private String name;
+
 }
