@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @NoArgsConstructor
 public class Country {
     @Id
-    private int num;// 1 2 3 4
+    private Long num;// 1 2 3 4
 
     @NotNull
     private String name;// 나라명

@@ -23,6 +23,7 @@ public class MemberService {
     }
 
     // 회원 가입
+    @Transactional
     public void setMemberAdd(ReqMemberDTO reqMemberDTO)throws Exception{
         Member member = Member.builder()
                 .email(reqMemberDTO.getEmail())
