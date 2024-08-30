@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Recommendation from "./components/Recommendation";
-import ExchangeRatio from "./components/ExchangeRatio";
-import Login from "./components/Login";
+import Home from "./pages/Home";
+import Recommendation from "./pages/Recommendation";
+import ExchangeRatio from "./pages/ExchangeRatio";
+import Login from "./pages/Login";
 import { Nav } from "./Nav";
-import SignUp from "./components/SignUp";
+import SignUp from "./pages/SignUp";
 
 
 const App = () => {

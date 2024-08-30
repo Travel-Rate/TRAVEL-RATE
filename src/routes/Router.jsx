@@ -1,8 +1,8 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import React from 'react';
-import ExchangeRatio from '../components/ExchangeRatio';
+import ExchangeRatio from '../pages/ExchangeRatio';
 import App from '../App';
-import Recommendation from '../components/Recommendation';
+import Recommendation from '../pages/Recommendation';
 
 const Router = () => {
     return (
