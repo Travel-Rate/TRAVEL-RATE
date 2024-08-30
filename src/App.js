@@ -1,20 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Recommendation from "./components/Recommendation";
+import ExchangeRatio from "./components/ExchangeRatio";
+import Login from "./components/Login";
+import { Nav } from "./Nav";
+import SignUp from "./components/SignUp";
 
-function App() {
-  const user = false
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className='nav-bar'>
-          <img src="logo" alt="" />
-          <div>여행지 추천</div>
-          <div>목표환율 설정</div>
-          <div>{user? '로그인' : '로그아웃'}</div>
-        </div>
-      </header>
-    </div>
-  );
+    <Router>
+      <Nav/>
+      <Routes>
+        <Route/>
+        <Route exact path='/' element={<Home/>}/>
+        <Route path="/recommendation" element={<Recommendation/>}/>
+        <Route path="/exchange" element={<ExchangeRatio/>}/>
+        <Route path='/login/*' element={<Login/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+      </Routes>
+    </Router>
+  )
 }
 
-export default App;
+export default App

@@ -1,11 +1,11 @@
-import React from 'react';
-import styles from './scss/Recommendation'
+import React from "react";
 
 const Recommendation = () => {
-  
-  return (
-    <div></div>
-  );
+    return (
+        <>
+        나하나
+        </>
+    )
 }
 
 export default Recommendation;
