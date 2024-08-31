@@ -92,7 +92,6 @@ export const SearchBar = ({ onSearchClick }) => {
                                 <div className={styles.ClickSlide} style={{ left: `${activeIndex * 14.2857}%` }}></div>
                             </div>
                         </ul>
-
                         <div>
                             {Array.isArray(tabContArr[activeIndex].tabCont) ? (
                                 tabContArr[activeIndex].tabCont.map((item, idx) => (
