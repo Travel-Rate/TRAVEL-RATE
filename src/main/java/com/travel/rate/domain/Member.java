@@ -31,10 +31,6 @@ public class Member {
     @NotNull
     private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "member")// 순환참조 막기
-    private List<TargetRate> targetRateList;
-
 //    ----------------------------------- 기준선
 
     // 빌더패턴 : 가독성이 높고 일관성과 불변성을 지켜줌

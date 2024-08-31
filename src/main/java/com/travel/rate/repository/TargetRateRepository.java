@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TargetRateRepository extends JpaRepository<TargetRate, Long> {
 
-    @Query("select t from TargetRate t where t.num =: num")
-    TargetRate findByNum(Long num);
+    @Query("select t from TargetRate t where t.tagId =: tagId")
+    TargetRate findByTagId(Long tagId);
 
 }

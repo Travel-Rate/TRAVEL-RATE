@@ -31,8 +31,7 @@ public class ExchgService {
     public void setTargetRateAdd(ReqTargetRateDTO reqTargetRateDTO){
 
         Member member = memberRepository.findByEmail(reqTargetRateDTO.getMemberEmail());
-        Country country = countryRepository.findByNum(reqTargetRateDTO.getCountryNum());
-        Currency currency = currencyRepository.findByCode(reqTargetRateDTO.getCurrencyNum());
+        Country country = countryRepository.findByCtrId(reqTargetRateDTO.getCtrId());
         // 알람생성횟수 1, 알림상태 미알림 false
         int count = 1;
         boolean state = false;
@@ -42,14 +41,10 @@ public class ExchgService {
         if(country == null){
             throw new IllegalArgumentException("잘못 입력된 나라입니다.");
         }
-        if(currency == null){
-            throw new IllegalArgumentException("잘못 입력된 통화입니다.");
-        }
         TargetRate targetRate = TargetRate.builder()
-                .num(reqTargetRateDTO.getNum())
+                .tagId(reqTargetRateDTO.getTagId())
                 .member(member)
                 .country(country)
-                .currency(currency)
                 .chgRate(reqTargetRateDTO.getChgRate())
                 .count(count)
                 .state(state)
@@ -58,7 +53,7 @@ public class ExchgService {
     }
     @Transactional
     public void setTargetRateDelete(Long targetId){
-        TargetRate targetRate = targetRateRepository.findByNum(targetId);
+        TargetRate targetRate = targetRateRepository.findByTagId(targetId);
         if(targetRate == null){
             throw new IllegalArgumentException("이미 삭제되었거나 없는 환율 설정입니다.");
         }
