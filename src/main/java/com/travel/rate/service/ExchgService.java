@@ -18,7 +18,7 @@ public class ExchgService {
         return resExchgDTOS;
     }
 
-    public Map<String, Float> getExchgMap(){
+    public Map<String, Double> getExchgMap(){
         return exchangeUtils.getExchgMap();
     }
 
