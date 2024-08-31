@@ -4,7 +4,11 @@ import styles from './SearchBar.module.scss'
 =======
 import React, {useState, useEffect, useRef} from "react";
 import styles from './SearchBar.module.scss';
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
 
 export const SearchBar = ({ onSearchClick }) => {
     const [activeIndex, setActiveIndex] = useState(0)
@@ -18,7 +22,11 @@ export const SearchBar = ({ onSearchClick }) => {
     const [isHovered, setIsHovered] = useState(false)
 
 =======
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
     const tabRef = useRef(null)
     const tabRef2 = useRef(null)
 
@@ -79,7 +87,11 @@ export const SearchBar = ({ onSearchClick }) => {
             tabCont: ["호주", "뉴질랜드"]
         },
     ]
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
 
     const handleClickOutside = (event) => {
         if (tabRef.current && !tabRef.current.contains(event.target)) {
@@ -87,7 +99,11 @@ export const SearchBar = ({ onSearchClick }) => {
 <<<<<<< HEAD
             setIsTravelClicked(false)
 =======
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
         }
     }
 
@@ -105,7 +121,11 @@ export const SearchBar = ({ onSearchClick }) => {
     }
 
     useEffect(()=> {
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
         document.addEventListener("click", handleClickOutside)
         return () => {
             document.removeEventListener("click", handleClickOutside)
@@ -118,7 +138,11 @@ export const SearchBar = ({ onSearchClick }) => {
     },[])
 
     useEffect(()=> {
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
         document.addEventListener("click", handleClickOutside2)
         return () => {
             document.removeEventListener("click", handleClickOutside2)
@@ -151,7 +175,11 @@ export const SearchBar = ({ onSearchClick }) => {
                 <div 
                     className={styles.TravelDestinationContainer}
                     onClick={() => setIsTabVisible(true)}
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
                 >
                     <p className={styles.TravelDestination}>여행지</p>
                     <p className={styles.TravelDestinationSearch}>여행지 검색</p>
@@ -174,7 +202,11 @@ export const SearchBar = ({ onSearchClick }) => {
                                 onClick={() => tabClickHandler(index)}
                                 >
                                 {section.tabTitle}
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
                                 </p>
                             ))}
                             <div className={styles.ClickSlideWrapper}>
@@ -185,7 +217,11 @@ export const SearchBar = ({ onSearchClick }) => {
 
 =======
                         
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
                         <div>
                             {Array.isArray(tabContArr[activeIndex].tabCont) ? (
                                 tabContArr[activeIndex].tabCont.map((item, idx) => (
@@ -199,6 +235,7 @@ export const SearchBar = ({ onSearchClick }) => {
                                 </span>
                             )}
                         </div>
+<<<<<<< HEAD
                         <button className={styles.ContinentBtn} onClick={(e) => {
                             e.preventDefault()
                             setIsBudgetClicked(true)
@@ -221,13 +258,22 @@ export const SearchBar = ({ onSearchClick }) => {
                     onMouseLeave={() => setIsHovered(false)}
                     className={`${styles.BudgetContainer} ${isBudgetClicked ? styles.clicked : isTravelClicked ? styles.inactive : ''}`}
 =======
+<<<<<<< HEAD
+=======
+                        <button className={styles.ContinentBtn}>대륙 선택</button>
+                    </div>
+>>>>>>> 56c9fea (feat: Recommendation page 1)
 
                 )}
 
                 <div
                     onClick={() => setIsTabVisible2(true)}
                     className={styles.BudgetContainer}
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
                 >
                     <p className={styles.Budget}>예산</p>
                     <p className={styles.BudgetInput}>예산 입력</p>
@@ -236,16 +282,22 @@ export const SearchBar = ({ onSearchClick }) => {
                 {isTabVisible2 && (
                     <div className={styles.BudgetSetting}>
                         <p>예산 입력</p>
+<<<<<<< HEAD
                         <div className={styles.BudgetSettingInputContainer}>
                             <input autoFocus className={styles.BudgetSettingInput} placeholder="원화로 예산을 입력하세요." />
                             <span className={styles.won}>원</span>
                             <p className={styles.line}></p>
                         </div>
+=======
+                        <input type="number" placeholder="원화로 예산을 입력하세요." />
+                        <span>원</span>
+>>>>>>> 3988754 (feat: Recommendation page 1)
                         <p>입력하신 예산을 기준으로 가장 가성비 좋은 여행지를 추천해드려요!</p>
                         <button className={styles.ContinentBtn}>완료</button>
                     </div>
                 )}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                 <button
 <<<<<<< HEAD
@@ -261,6 +313,8 @@ export const SearchBar = ({ onSearchClick }) => {
                     <img className={styles.SearchImg} src="/search.svg" alt="searchButton" />
                 </button>
 =======
+=======
+>>>>>>> 56c9fea (feat: Recommendation page 1)
              
                 <img className={styles.SearchImg} onClick={() => {
                     onSearchClick()
@@ -277,10 +331,25 @@ export const SearchBar = ({ onSearchClick }) => {
             <div className={styles.underline}></div>
         </div>
 =======
+<<<<<<< HEAD
+=======
+                <button
+                type="button"
+                className={styles.SearchBtn}
+                onClick={onSearchClick}
+                >
+                    <img className={styles.SearchImg} src="/search.svg" alt="searchButton" />
+                </button>
+            </form>
+>>>>>>> 56c9fea (feat: Recommendation page 1)
         
         <div className={styles.underline}></div>
 
     </div>
+<<<<<<< HEAD
 >>>>>>> 60918ff (feat: Recommendation page 1)
+=======
+>>>>>>> 3988754 (feat: Recommendation page 1)
+>>>>>>> 56c9fea (feat: Recommendation page 1)
     )
 }
