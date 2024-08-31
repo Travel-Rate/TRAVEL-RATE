@@ -9,7 +9,7 @@ import lombok.Data;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Data
 public class ResTravelDTO {
-    Long budget;
+    double budget;
     Currency currency;// currency안에 country 존재?
     Country country;
 }
