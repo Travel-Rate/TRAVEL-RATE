@@ -21,9 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class TravelService {
 
-    private final CountryRepository countryRepository;
     private final ContinentRepository continentRepository;
-    private final ExchgService exchgService;
     private final ExchangeUtils exchangeUtils;
 
     public List<ResTravelDTO> makeCountryRecommandation(ReqTravelDTO dto){
@@ -95,7 +93,6 @@ public class TravelService {
                 return country1Point - country2Point;
             });
         }
-
         return currencies;
     }
 

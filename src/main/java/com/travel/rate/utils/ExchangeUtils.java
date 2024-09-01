@@ -140,7 +140,7 @@ public class ExchangeUtils {
                         .host("www.koreaexim.go.kr")
                         .path("/site/program/financial/exchangeJSON")
                         .queryParam("authkey", authkey)
-                        .queryParam("searchdate", serchdate)
+                        .queryParam("searchdate", searchdate)
                         .queryParam("data", data)
                         .build())
                 .retrieve()
@@ -153,9 +153,6 @@ public class ExchangeUtils {
 
             for (JsonNode node : jsonNode) {
                 map.put(node.get("cur_unit").asText(), node.get("deal_bas_r").asDouble());
-                log.info("rate : ", node.get("deal_bas_r"));
-                log.info("rate : ", node.get("deal_bas_r").asDouble());
-
             }
         }
 
