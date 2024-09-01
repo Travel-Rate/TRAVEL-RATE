@@ -22,12 +22,12 @@ public class EmailService {
 
     public void sendSimpleMail(Long memId, String email) {
         email="zpfhzpfh112@naver.com";
-        String text = "목표 환율 알림 서비스에서 ";
+        String text = "✈travel rate✈ 회원님께서 설정한 목표 환율에 도달하여 메일 드립니다.";
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             mimeMessageHelper.setTo(email); // 메일 수신자
-            mimeMessageHelper.setSubject("✈travel rate 회원님의 목표 환율 알림 메일입니다."); // 메일 제목
+            mimeMessageHelper.setSubject("✈travel rate✈ 회원님의 여행계획을 위한 목표 환율 알림 메일입니다."); // 메일 제목
             mimeMessageHelper.setText(setContext(getTodayDate(), text), true); // 메일 본문 내용, HTML 여부
             javaMailSender.send(mimeMessage);
 
@@ -49,7 +49,7 @@ public class EmailService {
         Context context = new Context();
         context.setVariable("date", date);
         context.setVariable("text", text);
-        return templateEngine.process("todo", context);
+        return templateEngine.process("email", context);
     }
 
 }

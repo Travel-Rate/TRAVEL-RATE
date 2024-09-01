@@ -2,6 +2,7 @@ package com.travel.rate.service;
 
 import com.travel.rate.config.exeception.BusinessExceptionHandler;
 import com.travel.rate.domain.Country;
+import com.travel.rate.domain.Currency;
 import com.travel.rate.domain.Member;
 import com.travel.rate.domain.TargetRate;
 import com.travel.rate.dto.req.ReqTargetRateDTO;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +29,25 @@ public class ExchgService {
     private final MemberRepository memberRepository;
     private final CountryRepository countryRepository;
     private final CurrencyRepository currencyRepository;
+
+    // 통화
+
+    // 통화 목록 조회
+    public List<ResCurrencyDTO> getCurrencyList(){
+
+        List<Currency> currencies = currencyRepository.findAll();
+        List<ResCurrencyDTO> resCurrencyDTOS = new ArrayList<>();
+        for(Currency currency : currencies){
+            ResCurrencyDTO resCurrencyDTO = ResCurrencyDTO.builder()
+                    .curId(currency.getCurId())
+                    .code(currency.getCode())
+                    .name(currency.getName())
+                    .build();
+            resCurrencyDTOS.add(resCurrencyDTO);
+        }
+
+        return resCurrencyDTOS;
+    }
 
     // 환율 알림 설정
     @Transactional
