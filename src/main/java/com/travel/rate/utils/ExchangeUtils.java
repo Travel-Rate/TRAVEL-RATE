@@ -17,9 +17,7 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -89,14 +87,9 @@ public class ExchangeUtils {
 
             for (JsonNode node : jsonNode) {
                 ResExchgDTO resExchgDTO = convertJsonToExchangeDto(node);
-                log.info("결과       :", resExchgDTO.getResult());
                 log.info("통화코드    :", resExchgDTO.getCur_unit());
                 log.info("국가/통화명 :", resExchgDTO.getCur_nm());
-                log.info("송금받을때 :", resExchgDTO.getTtb());
-                log.info("송금보낼때 :", resExchgDTO.getTts());
                 log.info("매매 기준율 :", resExchgDTO.getDeal_bas_r());
-                log.info("장부가격 :", resExchgDTO.getYy_efee_r());
-                log.info("통화코드 :", resExchgDTO.getCur_unit());
                 resExchgDTOS.add(resExchgDTO);
             }
 
@@ -133,4 +126,39 @@ public class ExchangeUtils {
         return currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
     }
 
+    public Map<String, Double> getExchgMap() {
+        Map<String, Double> map = new HashMap<>();
+
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory();
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
+
+        // WebClient 생성
+        WebClient webClient = WebClient.builder().uriBuilderFactory(factory).build();
+        String responseBody = webClient.get()
+                .uri(builder -> builder
+                        .scheme("https")
+                        .host("www.koreaexim.go.kr")
+                        .path("/site/program/financial/exchangeJSON")
+                        .queryParam("authkey", authkey)
+                        .queryParam("searchdate", serchdate)
+                        .queryParam("data", data)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        JsonNode jsonNode = parseJson(responseBody);
+
+        if (jsonNode != null && jsonNode.isArray()) {
+
+            for (JsonNode node : jsonNode) {
+                map.put(node.get("cur_unit").asText(), node.get("deal_bas_r").asDouble());
+                log.info("rate : ", node.get("deal_bas_r"));
+                log.info("rate : ", node.get("deal_bas_r").asDouble());
+
+            }
+        }
+
+        return map;
+    }
 }
