@@ -4,7 +4,7 @@ import styles from '../css/ExchangeRatio.module.scss'
 import Slider from "../components/exchangeRatio/Slider";
 
 const ExchangeRatio = () => {
-    const [view, setView] = useState(false);
+    
     const [helpActive, setHelpActive] = useState(false)
     const toggleHelp = () => {
         setHelpActive(!helpActive);
