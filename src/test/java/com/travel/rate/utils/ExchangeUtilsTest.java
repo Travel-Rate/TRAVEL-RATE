@@ -1,20 +1,16 @@
 package com.travel.rate.utils;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.travel.rate.dto.exchange.ResExchgDTO;
+import com.travel.rate.dto.res.ResExchgDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
-import java.util.List;
 
 @SpringBootTest
 public class ExchangeUtilsTest {
@@ -37,16 +33,16 @@ public class ExchangeUtilsTest {
 //    @Test
     void getExchangeDataSyncTest(){
 
-        JsonNode result = exchangeUtils.getExchangeDataSync();
-        assert result != null;
+/*        JsonNode result = exchangeUtils.getExchangeDataSync();
+        assert result != null;*/
 
     }
 
 //    @Test
     void testGetExchangeDataAsDtoList(){
-        List<ResExchgDTO> resExchgDTOS = exchangeUtils.getExchangeDataAsDtoList();
+/*        List<ResExchgDTO> resExchgDTOS = exchangeUtils.getExchangeDataAsDtoList();
         Assert.notEmpty(resExchgDTOS, "notEmpty");
-        Assert.noNullElements(resExchgDTOS, "null인 객체가 없었으면 좋겠어");
+        Assert.noNullElements(resExchgDTOS, "null인 객체가 없었으면 좋겠어");*/
     }
 
 //    @Test

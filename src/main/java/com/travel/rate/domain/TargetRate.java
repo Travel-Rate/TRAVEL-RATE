@@ -1,13 +1,13 @@
 package com.travel.rate.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "target_rate")
 public class TargetRate {
@@ -19,7 +19,7 @@ public class TargetRate {
 
     private boolean rateRange;
 
-    private boolean count;
+    private Integer count;
 
     private boolean state;
 
@@ -30,6 +30,20 @@ public class TargetRate {
     @ManyToOne
     @JoinColumn(name = "mem_id")
     private Member member;
+
+    @Builder
+    public TargetRate(Long tagId, float chgRate, boolean rateRange,
+                      Integer count, boolean state, Country country,
+                      Member member) {
+        this.tagId = tagId;
+        this.chgRate = chgRate;
+        this.rateRange = rateRange;
+        this.count = count;
+        this.state = state;
+        this.country = country;
+        this.member = member;
+
+    }
 
 }
 

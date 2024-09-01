@@ -1,4 +1,4 @@
-package com.travel.rate.dto.exchange;
+package com.travel.rate.dto.res;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

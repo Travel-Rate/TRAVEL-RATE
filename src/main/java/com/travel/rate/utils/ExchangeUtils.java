@@ -3,20 +3,21 @@ package com.travel.rate.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.travel.rate.dto.exchange.ResExchgDTO;
+import com.travel.rate.dto.res.ResExchgDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import reactor.util.retry.Retry;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -29,7 +30,7 @@ public class ExchangeUtils {
     @Value("${exchange-data}")
     private String data;
 
-    private final String serchdate = getSearchdate();
+    private final String searchdate = getSearchdate();
 
     // 한국 수출입은행 API호출
     public JsonNode getExchangeDataSync(){
@@ -46,11 +47,21 @@ public class ExchangeUtils {
                         .host("www.koreaexim.go.kr")
                         .path("/site/program/financial/exchangeJSON")
                         .queryParam("authkey", authkey)
-                        .queryParam("searchdate", serchdate)
+                        .queryParam("searchdate", searchdate)
                         .queryParam("data", data)
                         .build())
                 .retrieve()
                 .bodyToMono(String.class)
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(2))     // 2초 뒤에 최대 3회 재시도
+                        .filter(throwable -> throwable instanceof WebClientResponseException
+                                || throwable instanceof java.net.SocketException) // 이 에러가 떴을때
+                        .onRetryExhaustedThrow(((retryBackoffSpec, retrySignal) ->
+                                retrySignal.failure()))
+                )
+                .doOnError(throwable ->
+                        // 재 시도 실패 시 로그
+                        System.out.println("재시도 실패: "+throwable.getMessage())
+                )
                 .block();
 
         return parseJson(responseBody);
@@ -76,14 +87,9 @@ public class ExchangeUtils {
 
             for (JsonNode node : jsonNode) {
                 ResExchgDTO resExchgDTO = convertJsonToExchangeDto(node);
-                log.info("결과       :", resExchgDTO.getResult());
                 log.info("통화코드    :", resExchgDTO.getCur_unit());
                 log.info("국가/통화명 :", resExchgDTO.getCur_nm());
-                log.info("송금받을때 :", resExchgDTO.getTtb());
-                log.info("송금보낼때 :", resExchgDTO.getTts());
                 log.info("매매 기준율 :", resExchgDTO.getDeal_bas_r());
-                log.info("장부가격 :", resExchgDTO.getYy_efee_r());
-                log.info("통화코드 :", resExchgDTO.getCur_unit());
                 resExchgDTOS.add(resExchgDTO);
             }
 
@@ -120,4 +126,36 @@ public class ExchangeUtils {
         return currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
     }
 
+    public Map<String, Double> getExchgMap() {
+        Map<String, Double> map = new HashMap<>();
+
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory();
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
+
+        // WebClient 생성
+        WebClient webClient = WebClient.builder().uriBuilderFactory(factory).build();
+        String responseBody = webClient.get()
+                .uri(builder -> builder
+                        .scheme("https")
+                        .host("www.koreaexim.go.kr")
+                        .path("/site/program/financial/exchangeJSON")
+                        .queryParam("authkey", authkey)
+                        .queryParam("searchdate", searchdate)
+                        .queryParam("data", data)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        JsonNode jsonNode = parseJson(responseBody);
+
+        if (jsonNode != null && jsonNode.isArray()) {
+
+            for (JsonNode node : jsonNode) {
+                map.put(node.get("cur_unit").asText(), node.get("deal_bas_r").asDouble());
+            }
+        }
+
+        return map;
+    }
 }
