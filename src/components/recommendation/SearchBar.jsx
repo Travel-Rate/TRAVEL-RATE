@@ -1,10 +1,16 @@
-import React, {useState, useEffect, useRef} from "react";
-import styles from './SearchBar.module.scss';
+import React, { useState, useEffect, useRef } from "react"
+import styles from './SearchBar.module.scss'
 
 export const SearchBar = ({ onSearchClick }) => {
     const [activeIndex, setActiveIndex] = useState(0)
     const [isTabVisible, setIsTabVisible] = useState(false)
     const [isTabVisible2, setIsTabVisible2] = useState(false)
+
+    const [isTravelClicked, setIsTravelClicked] = useState(false)
+    const [isBudgetClicked, setIsBudgetClicked] = useState(false)
+
+    const [isHovered, setIsHovered] = useState(false)
+
     const tabRef = useRef(null)
     const tabRef2 = useRef(null)
 
@@ -13,82 +19,57 @@ export const SearchBar = ({ onSearchClick }) => {
     }
 
     const tabContArr = [
-        {
-            index: 0,
-            tabTitle: "전체",
-            tabCont: ["중국", "홍콩", "일본", 
-                "브루나이", "인도네시아", "말레이시아", "싱가포르", "태국", 
-                "아랍에미리트", "바레인", "쿠웨이트", "사우디",
-                "미국", "캐나다",
-                "유로존", "스위스", "덴마크", "영국", "노르웨이", "스웨덴",
-                "호주", "뉴질랜드"
-                ]
-        },
-        {
-            index: 1,
-            tabTitle: "동북아",
-            tabCont: ["중국", "홍콩", "일본"]
-        },
-        {
-            index: 2,
-            tabTitle: "동남아",
-            tabCont: ["브루나이", "인도네시아", "말레이시아", "싱가포르", "태국"]
-        },
-        {
-            index: 3,
-            tabTitle: "중동",
-            tabCont: ["아랍에미리트", "바레인", "쿠웨이트", "사우디"]
-        },
-        {
-            index: 4,
-            tabTitle: "북미",
-            tabCont: ["미국", "캐나다"]
-        },
-        {
-            index: 5,
-            tabTitle: "유럽",
-            tabCont: ["유로존", "스위스", "덴마크", "영국", "노르웨이", "스웨덴"]
-        },
-        {
-            index: 6,
-            tabTitle: "오세안주",
-            tabCont: ["호주", "뉴질랜드"]
-        },
-    ]
+        { index: 0, tabTitle: "전체", tabCont: ["중국", "홍콩", "일본", "브루나이", "인도네시아", "말레이시아", "싱가포르", "태국", "아랍에미리트", "바레인", "쿠웨이트", "사우디", "미국", "캐나다", "유로존", "스위스", "덴마크", "영국", "노르웨이", "스웨덴", "호주", "뉴질랜드"] },
+        { index: 1, tabTitle: "동북아", tabCont: ["중국", "홍콩", "일본"] },
+        { index: 2, tabTitle: "동남아", tabCont: ["브루나이", "인도네시아", "말레이시아", "싱가포르", "태국"] },
+        { index: 3, tabTitle: "중동", tabCont: ["아랍에미리트", "바레인", "쿠웨이트", "사우디"] },
+        { index: 4, tabTitle: "북미", tabCont: ["미국", "캐나다"] },
+        { index: 5, tabTitle: "유럽", tabCont: ["유로존", "스위스", "덴마크", "영국", "노르웨이", "스웨덴"] },
+        { index: 6, tabTitle: "오세안주", tabCont: ["호주", "뉴질랜드"] }
+    ];
 
     const handleClickOutside = (event) => {
         if (tabRef.current && !tabRef.current.contains(event.target)) {
             setIsTabVisible(false)
+            setIsTravelClicked(false)
         }
     }
 
     const handleClickOutside2 = (event) => {
         if (tabRef2.current && !tabRef2.current.contains(event.target)) {
             setIsTabVisible2(false)
+            setIsBudgetClicked(false)
         }
-    }
+    };
 
-    useEffect(()=> {
+    useEffect(() => {
         document.addEventListener("click", handleClickOutside)
         return () => {
             document.removeEventListener("click", handleClickOutside)
         }
-    },[])
+    }, [])
 
-    useEffect(()=> {
+    useEffect(() => {
         document.addEventListener("click", handleClickOutside2)
         return () => {
             document.removeEventListener("click", handleClickOutside2)
         }
-    },[])
+    }, [])
 
+    const searchBarClass = `${styles.SearchBar} ${isTravelClicked || isBudgetClicked ? styles.inactive : ''}`
 
     return (
         <div className={styles.MainContainer}>
-            <form className={styles.SearchBar}>
-                <div 
-                    className={styles.TravelDestinationContainer}
-                    onClick={() => setIsTabVisible(true)}
+            <form className={searchBarClass}>
+                <div
+                    className={`${styles.TravelDestinationContainer} ${isTravelClicked ? styles.clicked : isBudgetClicked ? styles.inactive : ''}`}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onClick={() => {
+                        setIsTabVisible(true)
+                        setIsTravelClicked(true)
+                        setIsBudgetClicked(false)
+                    }}
                 >
                     <p className={styles.TravelDestination}>여행지</p>
                     <p className={styles.TravelDestinationSearch}>여행지 검색</p>
@@ -99,18 +80,18 @@ export const SearchBar = ({ onSearchClick }) => {
                         <ul className={styles.TabList}>
                             {tabContArr.map((section, index) => (
                                 <p
-                                key={index}
-                                className={`${styles.TabItem} ${index === activeIndex ? styles.isActive : ''}`}
-                                onClick={() => tabClickHandler(index)}
+                                    key={index}
+                                    className={`${styles.TabItem} ${index === activeIndex ? styles.isActive : ''}`}
+                                    onClick={() => tabClickHandler(index)}
                                 >
-                                {section.tabTitle}
+                                    {section.tabTitle}
                                 </p>
                             ))}
                             <div className={styles.ClickSlideWrapper}>
                                 <div className={styles.ClickSlide} style={{ left: `${activeIndex * 14.2857}%` }}></div>
                             </div>
                         </ul>
-                        
+
                         <div>
                             {Array.isArray(tabContArr[activeIndex].tabCont) ? (
                                 tabContArr[activeIndex].tabCont.map((item, idx) => (
@@ -126,12 +107,17 @@ export const SearchBar = ({ onSearchClick }) => {
                         </div>
                         <button className={styles.ContinentBtn}>대륙 선택</button>
                     </div>
-
                 )}
 
                 <div
-                    onClick={() => setIsTabVisible2(true)}
-                    className={styles.BudgetContainer}
+                    onClick={() => {
+                        setIsTabVisible2(true)
+                        setIsBudgetClicked(true)
+                        setIsTravelClicked(false)
+                    }}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    className={`${styles.BudgetContainer} ${isBudgetClicked ? styles.clicked : isTravelClicked ? styles.inactive : ''}`}
                 >
                     <p className={styles.Budget}>예산</p>
                     <p className={styles.BudgetInput}>예산 입력</p>
@@ -148,16 +134,15 @@ export const SearchBar = ({ onSearchClick }) => {
                 )}
 
                 <button
-                type="button"
-                className={styles.SearchBtn}
-                onClick={onSearchClick}
+                    type="button"
+                    className={styles.SearchBtn}
+                    onClick={onSearchClick}
                 >
                     <img className={styles.SearchImg} src="/search.svg" alt="searchButton" />
                 </button>
             </form>
-        
-        <div className={styles.underline}></div>
 
-    </div>
+            <div className={styles.underline}></div>
+        </div>
     )
 }
