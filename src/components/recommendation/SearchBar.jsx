@@ -139,6 +139,7 @@ export const SearchBar = ({ onSearchClick }) => {
                         setIsTabVisible(true)
                         setIsTravelClicked(true)
                         setIsBudgetClicked(false)
+                        setIsTabVisible2(false)
                     }}
 =======
     },[])
@@ -198,7 +199,13 @@ export const SearchBar = ({ onSearchClick }) => {
                                 </span>
                             )}
                         </div>
-                        <button className={styles.ContinentBtn}>대륙 선택</button>
+                        <button className={styles.ContinentBtn} onClick={(e) => {
+                            e.preventDefault()
+                            setIsBudgetClicked(true)
+                            setIsTabVisible2(true)
+                            setIsTravelClicked(false)
+                            setIsTabVisible(false)
+                            }}>대륙 선택</button>
                     </div>
 <<<<<<< HEAD
                 )}
@@ -208,6 +215,7 @@ export const SearchBar = ({ onSearchClick }) => {
                         setIsTabVisible2(true)
                         setIsBudgetClicked(true)
                         setIsTravelClicked(false)
+                        setIsTabVisible(false)
                     }}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
@@ -228,13 +236,17 @@ export const SearchBar = ({ onSearchClick }) => {
                 {isTabVisible2 && (
                     <div className={styles.BudgetSetting}>
                         <p>예산 입력</p>
-                        <input type="number" placeholder="원화로 예산을 입력하세요." />
-                        <span>원</span>
+                        <div className={styles.BudgetSettingInputContainer}>
+                            <input autoFocus className={styles.BudgetSettingInput} placeholder="원화로 예산을 입력하세요." />
+                            <span className={styles.won}>원</span>
+                            <p className={styles.line}></p>
+                        </div>
                         <p>입력하신 예산을 기준으로 가장 가성비 좋은 여행지를 추천해드려요!</p>
                         <button className={styles.ContinentBtn}>완료</button>
                     </div>
                 )}
 
+<<<<<<< HEAD
                 <button
 <<<<<<< HEAD
                     type="button"
@@ -248,6 +260,17 @@ export const SearchBar = ({ onSearchClick }) => {
                 >
                     <img className={styles.SearchImg} src="/search.svg" alt="searchButton" />
                 </button>
+=======
+             
+                <img className={styles.SearchImg} onClick={() => {
+                    onSearchClick()
+                    setIsTabVisible(false)
+                    setIsTabVisible2(false)
+                    setIsBudgetClicked(false)
+                    setIsTravelClicked(false)
+                    }} src="/search.svg" alt="searchButton" />
+              
+>>>>>>> 958359b (feat: recommendation section edit)
             </form>
 <<<<<<< HEAD
 
