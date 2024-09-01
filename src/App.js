@@ -4,11 +4,10 @@ import Home from "./pages/Home";
 import Recommendation from "./pages/Recommendation";
 import ExchangeRatio from "./pages/ExchangeRatio";
 import Login from "./pages/Login";
-<<<<<<< HEAD
+
+
 import { Nav } from "./components/app/Nav";
-=======
-import { Nav } from "./components/Nav";
->>>>>>> 06c17cb (feat:components-changeto-pages)
+
 import SignUp from "./pages/SignUp";
 
 
