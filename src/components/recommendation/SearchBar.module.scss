@@ -19,15 +19,27 @@
   background-color: #ebebeb;
 }
 
-.TabSetting, .BudgetSetting {
+.TabSetting {
   text-align: center;
-  padding: 0 40px 40px 40px;
+  padding: 10px 40px 40px 40px;
   width: 50%;
   background-color: white;
-  border: 1px solid #a5acb1;
-  border-radius: 5px;
+  border-radius: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 120%;
+}
+
+.BudgetSetting {
+  text-align: center;
+  padding: 10px 40px 40px 40px;
+  width: 50%;
+  background-color: white;
+  border-radius: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 120%;
+  right: 0;
 }
 
 .TabList {
@@ -77,17 +89,31 @@
 .TabContentItem {
   display: inline-block;
   margin: 5px;
-  padding: 8px 12px;
-  background-color: lightgray;
-  border-radius: 4px;
+  padding: 10px 20px;
+  min-width: 60px;
+  max-width: 80px;
+  background-color: #ebebeb;
+  border-radius: 20px;
   font-size: 14px;
-  color: #222222;
+  color: #787878;
 }
 
 .ContinentBtn {
-  margin-top: 10%;
-  width: 20%;
-  height: 50px;
+  border: none;
+  // border: 1px solid #7F9AED;
+  box-shadow: 0 1px 8px rgba(127, 154, 237, 0.8);
+  background-color: #fff;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #7F9AED;
+  margin-top: 8%;
+  width: 100%;
+  height: 60px;
+  &:hover {
+    background-color: #7F9AED;
+    color: white;
+  }
 }
 
 .TravelDestinationContainer, .BudgetContainer {
