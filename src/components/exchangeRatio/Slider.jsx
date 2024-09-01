@@ -6,7 +6,7 @@ export default function Slider() {
     const [sliderValue, setSliderValue] = useState(0);
     const [warning, setWarning] = useState(false)
     const handleSliderChange = (event) => {
-        const inputValue = event.target.value.replace(/[^0-9]/g, '');
+        const inputValue = event.target.value
         if (inputValue < 0 || inputValue > 5000) {
             setWarning(true)
         }
@@ -43,7 +43,7 @@ export default function Slider() {
                     <input type="text" 
                
                     className={styles.textInput}
-                    value={`${sliderValue}원`}
+                    value={sliderValue}
                     onChange={handleSliderChange}
                     />
                     

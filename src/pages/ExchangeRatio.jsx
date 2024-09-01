@@ -1,13 +1,49 @@
-import React, { useState} from "react";
-import Dropdown from "../components/Dropdown";
+import React, { useRef, useState} from "react";
+import Dropdown from "../components/exchangeRatio/Dropdown";
 import styles from '../css/ExchangeRatio.module.scss'
 import Slider from "../components/exchangeRatio/Slider";
 
 const ExchangeRatio = () => {
-    
+    const [countries, setCountries] = useState("")
     const [helpActive, setHelpActive] = useState(false)
+    const [goalRate, setGoalRate] = useState("")
+    const [submitList, setSubmitList] = useState([])
     const toggleHelp = () => {
         setHelpActive(!helpActive);
+    }
+    const handleDelete = (index) => {
+        setSubmitList((current) => current.filter((_, i) => i !== index));
+    };
+
+    const handleChangeRate = (event) => {
+        const selectedRate = event.target.value
+        setGoalRate(selectedRate)
+    }
+
+    const handleChangeCountry = (event) => {  
+        const selectedCountry = event.target.value
+        setCountries(selectedCountry)
+    }
+
+    const handleSubmit = () => {
+        if (!countries || !goalRate) {
+            alert('국가와 목표 환율을 모두 선택하세요.');
+            return;
+        }
+        const obj = {
+            country: countries,
+            targetRate: goalRate
+        }
+            if (submitList.length <= 3) {
+        setSubmitList((current)=>
+            [...current, obj])
+            setCountries("")
+            setGoalRate("")
+
+    } else {
+        return alert('최대 3개 국가 까지 추가 가능합니다.')
+    }
+        
     }
 
     return (
@@ -24,7 +60,8 @@ const ExchangeRatio = () => {
 
                 <div className={styles.goalContents}>
                 <p className={styles.goalSetting}>목표환율 설정</p>
-                <select name="" id="" className={styles.dropdownContainer}>
+                <select onChange={handleChangeCountry} name="" id=""  className={styles.dropdownContainer}>
+                    <option value="">국가를 선택해주세요</option>
                     <Dropdown/>
                 </select>
                 </div>
@@ -36,7 +73,7 @@ const ExchangeRatio = () => {
 
 
                 </div>
-                <div>
+                <div onChange={handleChangeRate}>
                 <Slider/>
                 {helpActive && (
                         <div className={styles.helpText2}>
@@ -46,7 +83,7 @@ const ExchangeRatio = () => {
                     )}
                 </div>
                 <div className={styles.alarmPlus}>
-                <img src="/add.png" alt="plus-img" />
+                <img src="/add.png" alt="plus-img" onClick={handleSubmit} />
                  <p>환율알림 추가</p>
                  {helpActive && (
                         <div className={styles.helpText3}>
@@ -54,19 +91,27 @@ const ExchangeRatio = () => {
                         </div>
                     )}
                 </div>
-                <div className={styles.lowerSideContents}>
                     <div className={styles.alarmDialogues}>
                         <span className={styles.alarmDialogueSmall}>최대 3개국/오전 11시 마다 업데이트</span>
                         <span className={styles.alarmDialogueBig}>환율 수정 / 삭제</span>
-                       
                     </div>
+                <div className={styles.lowerSideContents}>
+
                     <div className={styles.lowerSideContentsInner}>
-                        <div className={styles.lowerSideCountry1} >
+
+                    {submitList.length < 3 && submitList.map((item, index) => (
+                            <div key={index} className={styles.lowerSideCountry}>
+                                <p>국가 이름: {item.country}</p>
+                                <p>설정하신 환율(원화기준): {item.targetRate}원</p>
+                                  </div>
+                        ))}
+
+                        {/* {submitList.length < 3 && submitList && <div className={styles.lowerSideCountry1} >
                         <img src="/flag-sample.png" alt="flag1" className={styles.flag1}/>
-                        <p className={styles.lowerSideCountry1Name}>국가명 통화코드 환율</p>
+                        <p className={styles.lowerSideCountry1Name}>{submitList.country}</p>
                             <img src='/modify.png' alt="modify"className={styles.country1Modify} />
                             <img src="/cancel.png" alt="delete" className={styles.country1Delete}/>
-                        </div>
+                        </div>}
                         <hr />
                         <div className={styles.lowerSideCountry2}>
                         <img src="/flag-sample2.png" alt="flag2"  className={styles.flag2} />
@@ -80,8 +125,8 @@ const ExchangeRatio = () => {
                         <p className={styles.lowerSideCountry3Name}>국가명 통화코드 환율</p>
                             <img src="/modify.png" alt="modify" className={styles.country3Modify}/>
                             <img src="/cancel.png" alt="delete" className={styles.country3Delete}/>
-                        </div>
-                        <hr />
+                        </div> */}
+                       
                     </div>
                 </div>
                 {helpActive && (
