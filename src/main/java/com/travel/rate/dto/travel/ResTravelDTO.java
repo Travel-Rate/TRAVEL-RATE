@@ -10,6 +10,12 @@ import lombok.Data;
 @Data
 public class ResTravelDTO {
     double budget;
-    Currency currency;// currency안에 country 존재?
-    Country country;
+
+    Long currencyId;
+    String currencyCode;
+    String currencyName;
+
+    Long countryId;
+    String countryName;
+    String season;
 }

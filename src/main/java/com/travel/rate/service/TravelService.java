@@ -48,8 +48,13 @@ public class TravelService {
     public ResTravelDTO convertToResTravelDTO(Currency currency, String curCode, double exchangeRate, double originalBudget){
         ResTravelDTO dto = new ResTravelDTO();
         dto.setBudget( (originalBudget / exchangeRate) );
-        dto.setCurrency(currency);
-        dto.setCountry(currency.getCountries().get(0));
+        dto.setCurrencyId(currency.getCurId());
+        dto.setCurrencyCode(currency.getCode());
+        dto.setCurrencyName(currency.getName());
+        Country one = currency.getCountries().get(0);
+        dto.setCountryId(one.getCtrId());
+        dto.setCountryName(one.getName());
+        dto.setSeason(one.getSeason());
         return dto;
     }
 
@@ -110,7 +115,7 @@ public class TravelService {
             }
         });
 
-        return sortedCurrencies.subList(0, 3);
+        return sortedCurrencies.subList(0, sortedCurrencies.size()<3 ? sortedCurrencies.size() : 3);
     }
 
 
