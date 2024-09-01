@@ -31,6 +31,20 @@ public class ExchgService {
     private final CurrencyRepository currencyRepository;
 
     // 통화
+    public List<ResTargetRateDTO> getMemberTargetRateList(Long memId){
+        List<TargetRate> targetRates = targetRateRepository.getMemberTarget(memId);
+        List<ResTargetRateDTO> resTargetRateDTOS = new ArrayList<>();
+        for(TargetRate targetRate : targetRates){
+            ResTargetRateDTO resTargetRateDTO = ResTargetRateDTO.builder()
+                    .targetRate(targetRate)
+                    .country(targetRate.getCountry())
+                    .currency(targetRate.getCountry().getCurrency())
+                    // 여기에 현재 환율 정보를 같이 보내야하는건가요..?
+                    .build();
+            resTargetRateDTOS.add(resTargetRateDTO);
+        }
+        return resTargetRateDTOS;
+    }
 
     // 통화 목록 조회
     public List<ResCurrencyDTO> getCurrencyList(){

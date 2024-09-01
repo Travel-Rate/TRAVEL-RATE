@@ -3,6 +3,7 @@ package com.travel.rate.controller;
 import com.travel.rate.dto.req.ReqTargetRateDTO;
 import com.travel.rate.dto.res.ResCurrencyDTO;
 import com.travel.rate.dto.res.ResExchgDTO;
+import com.travel.rate.dto.res.ResTargetRateDTO;
 import com.travel.rate.service.EmailService;
 import com.travel.rate.service.ExchgService;
 import lombok.RequiredArgsConstructor;
@@ -21,16 +22,22 @@ public class ExchgController {
     private final ExchgService exchgService;
     private final EmailService emailService;
 
-    @PostMapping("target/list/{memId}")
-    public void getMemberTargetRateList(@PathVariable("memId") Long memId){
+    // 목표환율 상세 조회
+    @GetMapping("target/{tagId}")
+    public void getTargetDetail(@PathVariable("tagId") Long tagId){
 
+    }
+
+    // 사용자 목표환율 조회
+    @GetMapping("target/list/{memId}")
+    public List<ResTargetRateDTO> getMemberTargetRateList(@PathVariable("memId") Long memId){
+        return exchgService.getMemberTargetRateList(memId);
     }
 
     // 통화 목록 조회
     @GetMapping("currencies")
     public List<ResCurrencyDTO> getCurrencyList(){
-         List<ResCurrencyDTO> resCurrencyDTOS = exchgService.getCurrencyList();
-        return resCurrencyDTOS;
+        return exchgService.getCurrencyList();
     }
 
     // 환율 알림 설정

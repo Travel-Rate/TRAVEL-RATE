@@ -4,6 +4,7 @@ import com.travel.rate.domain.Country;
 import com.travel.rate.domain.Currency;
 import com.travel.rate.domain.Member;
 import com.travel.rate.domain.TargetRate;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,17 +21,14 @@ public class ResTargetRateDTO {
 
     private String curCode;
 
-    private String curName;
 
-    private String memEmail;
 
-    public ResTargetRateDTO(TargetRate targetRate, Member member, Currency currency, Country country) {
+    @Builder
+    public ResTargetRateDTO(TargetRate targetRate, Currency currency, Country country) {
         this.tagId = targetRate.getTagId();
         this.chgRate = targetRate.getChgRate();
         this.ctrName = country.getName();
         this.curCode = currency.getCode();
-        this.curName = currency.getName();
-        this.memEmail = member.getEmail();
 
     }
 }
