@@ -74,14 +74,9 @@ public class ExchangeUtils {
 
             for (JsonNode node : jsonNode) {
                 ResExchgDTO resExchgDTO = convertJsonToExchangeDto(node);
-                log.info("결과       :", resExchgDTO.getResult());
                 log.info("통화코드    :", resExchgDTO.getCur_unit());
                 log.info("국가/통화명 :", resExchgDTO.getCur_nm());
-                log.info("송금받을때 :", resExchgDTO.getTtb());
-                log.info("송금보낼때 :", resExchgDTO.getTts());
                 log.info("매매 기준율 :", resExchgDTO.getDeal_bas_r());
-                log.info("장부가격 :", resExchgDTO.getYy_efee_r());
-                log.info("통화코드 :", resExchgDTO.getCur_unit());
                 resExchgDTOS.add(resExchgDTO);
             }
 
@@ -145,6 +140,9 @@ public class ExchangeUtils {
 
             for (JsonNode node : jsonNode) {
                 map.put(node.get("cur_unit").asText(), node.get("deal_bas_r").asDouble());
+                log.info("rate : ", node.get("deal_bas_r"));
+                log.info("rate : ", node.get("deal_bas_r").asDouble());
+
             }
         }
 

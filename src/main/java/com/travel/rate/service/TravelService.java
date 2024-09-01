@@ -39,15 +39,15 @@ public class TravelService {
 
         List<ResTravelDTO> resTravelDTOList = new ArrayList<>();
         for(Currency currency : top3Currencies){
-            resTravelDTOList.add(convertToResTravelDTO(currency, currency.getCode(), map.get(currency.getCode()), dto.getBudget()));
+            resTravelDTOList.add(convertToResTravelDTO(currency, map.get(currency.getCode()), dto.getBudget()));
         }
 
         return resTravelDTOList;
     }
 
-    public ResTravelDTO convertToResTravelDTO(Currency currency, String curCode, double exchangeRate, double originalBudget){
+    public ResTravelDTO convertToResTravelDTO(Currency currency, double exchangeRate, Long originalBudget){
         ResTravelDTO dto = new ResTravelDTO();
-        dto.setBudget( (originalBudget / exchangeRate) );
+        dto.setBudget( (long) (originalBudget / exchangeRate) );
         dto.setCurrencyId(currency.getCurId());
         dto.setCurrencyCode(currency.getCode());
         dto.setCurrencyName(currency.getName());
@@ -117,7 +117,5 @@ public class TravelService {
 
         return sortedCurrencies.subList(0, sortedCurrencies.size()<3 ? sortedCurrencies.size() : 3);
     }
-
-
 
 }
