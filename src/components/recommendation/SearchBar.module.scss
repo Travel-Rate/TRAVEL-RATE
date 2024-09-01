@@ -6,13 +6,20 @@
 
 .SearchBar {
   display: flex;
-  width: 70%;
+  width: 80%;
   position: relative;
-  background-color: gray;
+  background-color: white;
   border-radius: 50px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
-.TabSetting {
+.inactive {
+  background-color: #ebebeb;
+}
+
+.TabSetting, .BudgetSetting {
   text-align: center;
   padding: 0 40px 40px 40px;
   width: 50%;
@@ -21,17 +28,6 @@
   border-radius: 5px;
   position: absolute;
   top: 120%;
-  right: 40%;
-}
-
-.BudgetSetting {
-  padding: 0 5%;
-  width: 50%;
-  border: 1px solid #a5acb1;
-  background-color: white;
-  position: absolute;
-  top: 120%;
-  right: 5%;
 }
 
 .TabList {
@@ -78,7 +74,6 @@
   z-index: 2;
 }
 
-
 .TabContentItem {
   display: inline-block;
   margin: 5px;
@@ -95,27 +90,24 @@
   height: 50px;
 }
 
-
-.TravelDestinationContainer {
+.TravelDestinationContainer, .BudgetContainer {
   width: 100%;
-  border: 1px solid gray;
   border-radius: 50px;
   padding-left: 4%;
+  transition: background-color 0.3s ease;
+
   &:hover {
-    background-color: white;
+    background-color: #ebebeb;
   }
 }
 
-.BudgetContainer {
-  width: 100%;
-  border: 1px solid gray;
-  border-radius: 50px;
-  padding-left: 4%;
-  &:hover {
-    background-color: white;
-  }
+.clicked {
+  background-color: white !important;
 }
 
+.inactive {
+  background-color: #ebebeb;
+}
 
 .TravelDestination {
   font-size: 18px;
@@ -123,10 +115,9 @@
   font-weight: 700;
 }
 
-.TravelDestinationSearch { 
+.TravelDestinationSearch, .BudgetInput {
   font-size: 16px;
 }
-
 
 .underline {
   width: 80%;
@@ -149,4 +140,7 @@
   padding: 0;
   margin: 0;
   width: 100px;
+  &:hover {
+    opacity: 0.5;
+  }
 }
