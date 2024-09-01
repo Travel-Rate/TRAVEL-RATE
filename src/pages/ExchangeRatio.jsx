@@ -1,4 +1,4 @@
-import React, { useRef, useState} from "react";
+import React, { useState} from "react";
 import Dropdown from "../components/exchangeRatio/Dropdown";
 import styles from '../css/ExchangeRatio.module.scss'
 import Slider from "../components/exchangeRatio/Slider";
