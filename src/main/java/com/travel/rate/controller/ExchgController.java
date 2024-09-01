@@ -23,19 +23,19 @@ public class ExchgController {
         try{
             exchgService.setTargetRateAdd(reqTargetRateDTO);
             return ResponseEntity.ok("목표 환율 설정을 완료했습니다.");
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.ok("잘못 입력됐습니다. 다시 설정 해주세요");
+        }catch (Exception e){
+            return ResponseEntity.ok("");
         }
     }
 
     // 환율 알림 삭제
-    @DeleteMapping("target/{targetId}")
-    public ResponseEntity<String> setTargetRateDelete(@PathVariable("targetId") Long targetId){
+    @DeleteMapping("target/{tagId}")
+    public ResponseEntity<String> setTargetRateDelete(@PathVariable("tagId") Long tagId){
         try{
-            exchgService.setTargetRateDelete(targetId);
+            exchgService.setTargetRateDelete(tagId);
             return ResponseEntity.ok("환율 알림 삭제를 완료했습니다.");
         }catch (IllegalArgumentException e){
-            return ResponseEntity.ok("환율 알림 삭제중 오류가 생겼습니다.");
+            return ResponseEntity.ok("");
         }
     }
 

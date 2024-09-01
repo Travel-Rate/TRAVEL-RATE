@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface CountryRepository extends JpaRepository<Country, Long> {
     @Query("select c from Country c where c.ctrId = :ctrId")
     Country findByCtrId(Long ctrId);
+
+    boolean existsByCtrId(Long ctrId);
+
 }

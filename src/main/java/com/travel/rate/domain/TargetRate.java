@@ -17,7 +17,7 @@ public class TargetRate {
 
     private float chgRate;
 
-    private boolean rateRange;
+    private int rateRange;
 
     private Integer count;
 
@@ -32,7 +32,7 @@ public class TargetRate {
     private Member member;
 
     @Builder
-    public TargetRate(Long tagId, float chgRate, boolean rateRange,
+    public TargetRate(Long tagId, float chgRate, int rateRange,
                       Integer count, boolean state, Country country,
                       Member member) {
         this.tagId = tagId;
