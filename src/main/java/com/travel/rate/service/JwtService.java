@@ -39,4 +39,8 @@ public class JwtService {
         map.put("role", "ROLE_USER");
         return map;
     }
+
+    public String logout(String accessToken){
+
+    }
 }

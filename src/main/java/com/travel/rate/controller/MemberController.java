@@ -27,6 +27,13 @@ public class MemberController {
         return ResponseEntity.ok().body(jwtService.generateAccessToken(reqLoginDTO));
     }
 
+    @PostMapping("logout")
+    public ResponseEntity logout(@RequestHeader("Authorization") String authorizationHeader){
+        System.out.println(authorizationHeader);
+
+        return ResponseEntity.ok().body("로그아웃");
+    }
+
 //    ----------------------------------- 기준선
 
     // 아이디 중복 확인
