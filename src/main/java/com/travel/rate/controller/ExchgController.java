@@ -81,13 +81,4 @@ public class ExchgController {
         return resExchgDTOS;
     }
 
-    // 메일 발송
-    @GetMapping("email")
-    public ResponseEntity<String> sendEmail(){
-        String email = "";
-        Long memId = 1L;
-        emailService.sendSimpleMail(memId, email);
-        return  ResponseEntity.ok("이메일을 성공적으로 보냈습니다.");
-    }
-
 }

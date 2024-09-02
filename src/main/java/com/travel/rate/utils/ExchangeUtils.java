@@ -8,11 +8,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.util.retry.Retry;
 
+import javax.net.ssl.SSLHandshakeException;
 import java.io.IOException;
+import java.net.SocketException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -47,21 +51,17 @@ public class ExchangeUtils {
                         .host("www.koreaexim.go.kr")
                         .path("/site/program/financial/exchangeJSON")
                         .queryParam("authkey", authkey)
-                        .queryParam("searchdate", searchdate)
+                        .queryParam("searchdate", "20240902")// searchdate)
                         .queryParam("data", data)
                         .build())
                 .retrieve()
                 .bodyToMono(String.class)
-                .retryWhen(Retry.backoff(3, Duration.ofSeconds(2))     // 2초 뒤에 최대 3회 재시도
-                        .filter(throwable -> throwable instanceof WebClientResponseException
-                                || throwable instanceof java.net.SocketException) // 이 에러가 떴을때
-                        .onRetryExhaustedThrow(((retryBackoffSpec, retrySignal) ->
-                                retrySignal.failure()))
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(5))
+                        .filter(throwable -> throwable instanceof WebClientRequestException ||
+                                throwable instanceof SSLHandshakeException ||
+                                throwable instanceof SocketException)
                 )
-                .doOnError(throwable ->
-                        // 재 시도 실패 시 로그
-                        System.out.println("재시도 실패: "+throwable.getMessage())
-                )
+                .doOnError(this::handleError)
                 .block();
 
         return parseJson(responseBody);
@@ -79,6 +79,7 @@ public class ExchangeUtils {
         }
     }
 
+    // 실시간 환율 전체 정보
     public List<ResExchgDTO> getExchangeDataAsDtoList() {
         JsonNode jsonNode = getExchangeDataSync();
 
@@ -87,15 +88,12 @@ public class ExchangeUtils {
 
             for (JsonNode node : jsonNode) {
                 ResExchgDTO resExchgDTO = convertJsonToExchangeDto(node);
-                log.info("통화코드    :", resExchgDTO.getCur_unit());
-                log.info("국가/통화명 :", resExchgDTO.getCur_nm());
-                log.info("매매 기준율 :", resExchgDTO.getDeal_bas_r());
                 resExchgDTOS.add(resExchgDTO);
             }
 
             return resExchgDTOS;
         }
-
+        // 빈값을 리턴
         return Collections.emptyList();
     }
 
@@ -158,4 +156,21 @@ public class ExchangeUtils {
 
         return map;
     }
+
+    private void handleError(Throwable throwable) {
+        if (throwable instanceof WebClientResponseException) {
+            WebClientResponseException ex = (WebClientResponseException) throwable;
+            System.err.println("HTTP Status Code: " + ex.getStatusCode());
+            System.err.println("Response Body: " + ex.getResponseBodyAsString());
+        } else if (throwable instanceof SSLHandshakeException) {
+            System.err.println("SSLHandshakeException 발생: " + throwable.getMessage());
+        } else if (throwable instanceof SocketException) {
+            System.err.println("SocketException 발생: " + throwable.getMessage());
+        } else if (throwable instanceof WebClientRequestException) {
+            System.err.println("WebClientRequestException 발생: " + throwable.getMessage());
+        } else {
+            System.err.println("알 수 없는 오류 발생: " + throwable.getMessage());
+        }
+    }
+
 }
