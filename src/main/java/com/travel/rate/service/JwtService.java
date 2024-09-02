@@ -48,7 +48,7 @@ public class JwtService {
     public String logout(String accessToken){
 
         Member entity = memberRepository.findByAtk(accessToken);
-        if(entity==null) return "이미 로그아웃된 유저";
+        if(entity==null) return "이미 로그아웃된 유저";// TODO 예외처리하기
         entity.setAtk(null);
         memberRepository.save(entity);
         return "로그아웃 완료";
