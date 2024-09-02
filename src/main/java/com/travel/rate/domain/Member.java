@@ -2,15 +2,13 @@ package com.travel.rate.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
 @Entity
 @Getter
 // AccessLevel.PROTECTED : 접근권한 최소화 (세팅한 값만 사용하기 위해)
@@ -30,6 +28,8 @@ public class Member {
 
     @NotNull
     private String name;
+
+    private String atk;
 
 //    ----------------------------------- 기준선
 

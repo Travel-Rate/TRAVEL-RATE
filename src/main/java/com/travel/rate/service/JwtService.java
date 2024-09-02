@@ -28,6 +28,11 @@ public class JwtService {
             if (entity == null)  return null;
             if (!dto.getPassword().equals(entity.getPassword())) return null;
             accessToken = jwtUtill.generateToken(converToMap(entity), 7);
+
+            entity.setAtk(accessToken);
+
+            memberRepository.save(entity);
+
         return accessToken;
     }
 
@@ -42,5 +47,18 @@ public class JwtService {
 
     public String logout(String accessToken){
 
+        Member entity = memberRepository.findByAtk(accessToken);
+        if(entity==null) return "이미 로그아웃된 유저";
+        entity.setAtk(null);
+        memberRepository.save(entity);
+        return "로그아웃 완료";
+    }
+
+    public Map<String, Object> validateTokenAndGetMember(String accessToken){
+        Member entity = memberRepository.findByAtk(accessToken);
+        if(entity==null) { return null;
+        }
+        Map<String,Object> map = jwtUtill.validateToken(accessToken);
+        return map;
     }
 }

@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 //  의존성 주입
 @RequiredArgsConstructor
 @RestController
@@ -29,9 +31,14 @@ public class MemberController {
 
     @PostMapping("logout")
     public ResponseEntity logout(@RequestHeader("Authorization") String authorizationHeader){
-        System.out.println(authorizationHeader);
-
+        jwtService.logout(authorizationHeader);
         return ResponseEntity.ok().body("로그아웃");
+    }
+
+    @PostMapping("test")
+    public ResponseEntity test(@RequestHeader("Authorization") String authorizationHeader){
+        Map<String, Object> map = jwtService.validateTokenAndGetMember(authorizationHeader);
+        return ResponseEntity.ok().body("로그인중인 유저 : "+map);
     }
 
 //    ----------------------------------- 기준선

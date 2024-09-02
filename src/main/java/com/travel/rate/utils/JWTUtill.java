@@ -55,7 +55,7 @@ public class JWTUtill {
         try{
             SecretKey Key = Keys.hmacShaKeyFor(JWTUtill.key.getBytes(StandardCharsets.UTF_8));
             claim = Jwts.parserBuilder()
-                    .setSigningKey(key)
+                    .setSigningKey(Key)
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
