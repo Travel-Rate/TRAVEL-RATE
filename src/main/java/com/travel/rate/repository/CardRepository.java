@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
-    @Query("SELECT c FROM Card c WHERE c.preferredCountry LIKE %:searchName%")
+    @Query("SELECT c FROM Card c WHERE c.preferredCountry LIKE %:searchName% or c.preferredCountry LIKE %'전체'%")
     List<Card> findCardsByPreferredCountryContaining(@Param("searchName") String searchName);
 }

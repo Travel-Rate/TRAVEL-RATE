@@ -1,4 +1,4 @@
-package com.travel.rate.config.exeception;
+package com.travel.rate.exception;
 
 import com.travel.rate.dto.res.ErrorCode;
 import lombok.Builder;
