@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class ReqTargetRateDTO {
 //    목표 환율 설정 정보를 받는 DTO
     private Long tagId;          // 환율 알림 번호
-    private String memberEmail;  // 사용자이메일
+    private Long memId;  // 사용자이메일
     private Long ctrId;          // 나라FK
     private Long curId;          // 통화FK
     private float chgRate;       // 목표환율

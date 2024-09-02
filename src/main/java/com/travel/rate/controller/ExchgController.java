@@ -1,13 +1,17 @@
 package com.travel.rate.controller;
 
 import com.travel.rate.dto.req.ReqTargetRateDTO;
+import com.travel.rate.dto.res.ResCurrencyDTO;
 import com.travel.rate.dto.res.ResExchgDTO;
+import com.travel.rate.dto.res.ResTargetRateDTO;
+import com.travel.rate.service.EmailService;
 import com.travel.rate.service.ExchgService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Currency;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,6 +20,25 @@ import java.util.List;
 @RequestMapping("exchange-rate/*")
 public class ExchgController {
     private final ExchgService exchgService;
+    private final EmailService emailService;
+
+    // 목표환율 상세 조회
+    @GetMapping("target/{tagId}")
+    public void getTargetDetail(@PathVariable("tagId") Long tagId){
+
+    }
+
+    // 사용자 목표환율 조회
+    @GetMapping("target/list/{memId}")
+    public List<ResTargetRateDTO> getMemberTargetRateList(@PathVariable("memId") Long memId){
+        return exchgService.getMemberTargetRateList(memId);
+    }
+
+    // 통화 목록 조회
+    @GetMapping("currencies")
+    public List<ResCurrencyDTO> getCurrencyList(){
+        return exchgService.getCurrencyList();
+    }
 
     // 환율 알림 설정
     @PostMapping("target/add")
@@ -23,19 +46,19 @@ public class ExchgController {
         try{
             exchgService.setTargetRateAdd(reqTargetRateDTO);
             return ResponseEntity.ok("목표 환율 설정을 완료했습니다.");
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.ok("잘못 입력됐습니다. 다시 설정 해주세요");
+        }catch (Exception e){
+            return ResponseEntity.ok("");
         }
     }
 
     // 환율 알림 삭제
-    @DeleteMapping("target/{targetId}")
-    public ResponseEntity<String> setTargetRateDelete(@PathVariable("targetId") Long targetId){
+    @DeleteMapping("target/{tagId}")
+    public ResponseEntity<String> setTargetRateDelete(@PathVariable("tagId") Long tagId){
         try{
-            exchgService.setTargetRateDelete(targetId);
+            exchgService.setTargetRateDelete(tagId);
             return ResponseEntity.ok("환율 알림 삭제를 완료했습니다.");
         }catch (IllegalArgumentException e){
-            return ResponseEntity.ok("환율 알림 삭제중 오류가 생겼습니다.");
+            return ResponseEntity.ok("");
         }
     }
 
@@ -44,6 +67,15 @@ public class ExchgController {
     public List<ResExchgDTO> getExchgList() {
         List<ResExchgDTO> resExchgDTOS = exchgService.getExchgList();
         return resExchgDTOS;
+    }
+
+    // 메일 발송
+    @GetMapping("email")
+    public ResponseEntity<String> sendEmail(){
+        String email = "";
+        Long memId = 1L;
+        emailService.sendSimpleMail(memId, email);
+        return  ResponseEntity.ok("이메일을 성공적으로 보냈습니다.");
     }
 
 }
