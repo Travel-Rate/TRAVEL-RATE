@@ -38,6 +38,12 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // jwt 생성및 발급, 유효성 검사, 파싱, 해석
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    // jwt api모듈
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    // jackson 라이브러리의 통합모듈
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 }
 
 tasks.named('test') {

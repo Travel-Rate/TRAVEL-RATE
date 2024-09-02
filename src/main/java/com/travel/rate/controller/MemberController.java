@@ -1,7 +1,10 @@
 package com.travel.rate.controller;
 
 import com.travel.rate.domain.Member;
+import com.travel.rate.dto.member.ReqLoginDTO;
 import com.travel.rate.dto.req.ReqMemberDTO;
+import com.travel.rate.service.CardService;
+import com.travel.rate.service.JwtService;
 import com.travel.rate.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 //  의존성 주입
 @RequiredArgsConstructor
 @RestController
@@ -17,6 +22,24 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
+    private final JwtService jwtService;
+
+    @PostMapping("login")
+    public ResponseEntity login(@RequestBody ReqLoginDTO reqLoginDTO) {
+        return ResponseEntity.ok().body(jwtService.generateAccessToken(reqLoginDTO));
+    }
+
+    @PostMapping("logout")
+    public ResponseEntity logout(@RequestHeader("Authorization") String authorizationHeader){
+        jwtService.logout(authorizationHeader);
+        return ResponseEntity.ok().body("로그아웃");
+    }
+
+    @PostMapping("test")
+    public ResponseEntity test(@RequestHeader("Authorization") String authorizationHeader){
+        Map<String, Object> map = jwtService.validateTokenAndGetMember(authorizationHeader);
+        return ResponseEntity.ok().body("로그인중인 유저 : "+map);
+    }
 
 //    ----------------------------------- 기준선
 
