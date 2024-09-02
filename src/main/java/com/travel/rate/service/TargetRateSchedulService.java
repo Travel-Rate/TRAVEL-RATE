@@ -25,7 +25,7 @@ public class TargetRateSchedulService {
     private final EmailService emailService;
 
     // @Scheduled(cron = "0 */5 11-19 * * ?")  // 매 5분마다, 오전 11시부터 오후 7시 55분까지 실행
-    @Scheduled(cron = "0 */1 * * * ?") // 매일 1분마다
+//    @Scheduled(cron = "0 */1 * * * ?") // 매일 1분마다
     public void targetRateEmail(){
         LocalDateTime now = LocalDateTime.now();
         LocalTime start = LocalTime.of(11, 0);
