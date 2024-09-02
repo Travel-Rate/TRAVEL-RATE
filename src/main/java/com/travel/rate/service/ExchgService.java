@@ -1,6 +1,6 @@
 package com.travel.rate.service;
 
-import com.travel.rate.config.exeception.BusinessExceptionHandler;
+import com.travel.rate.exception.BusinessExceptionHandler;
 import com.travel.rate.domain.Country;
 import com.travel.rate.domain.Currency;
 import com.travel.rate.domain.Member;
