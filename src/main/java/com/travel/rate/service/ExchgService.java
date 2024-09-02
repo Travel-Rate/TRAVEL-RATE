@@ -29,9 +29,40 @@ public class ExchgService {
     private final TargetRateRepository targetRateRepository;
     private final MemberRepository memberRepository;
     private final CountryRepository countryRepository;
-    private final CurrencyRepository currencyRepository;
 
-    // 통화
+    // 목표환율 수정
+    @Transactional
+    public void setTargetRateUpdate(Long tagId, ReqTargetRateDTO reqTargetRateDTO) throws Exception {
+        TargetRate targetRate = targetRateRepository.findById(tagId)
+                .orElseThrow(()-> new IllegalArgumentException("목표환율을 찾을 수 없습니다."));
+        boolean countryCheck = countryRepository.existsByCtrId(reqTargetRateDTO.getCtrId());
+        if(!countryCheck){
+            throw new IllegalArgumentException("해당 국가는 없습니다.");
+        }
+        System.out.println("업데이트 전 타겟레이트 정보 : "+targetRate.getChgRate());
+        Country country = countryRepository.findByCtrId(reqTargetRateDTO.getCtrId());
+        targetRate.update(
+                reqTargetRateDTO.getChgRate(),
+                reqTargetRateDTO.getRateRange(),
+                country
+            );
+        System.out.println("업데이트 후우우우우 타겟레이트 정보 : "+targetRate.getChgRate());
+        targetRateRepository.save(targetRate);
+
+    }
+
+    // 목표환율 상세 조회
+    public ResTargetRateDTO getTargetDetail(Long tagId){
+        TargetRate targetRate = targetRateRepository.findOneByTagId(tagId);
+        ResTargetRateDTO resTargetRateDTO = ResTargetRateDTO.builder()
+                .targetRate(targetRate)
+                .country(targetRate.getCountry())
+                .currency(targetRate.getCountry().getCurrency())
+                .build();
+        return resTargetRateDTO;
+    }
+
+    // 사용자 목표환율 목록 조회
     public List<ResTargetRateDTO> getMemberTargetRateList(Long memId){
         List<TargetRate> targetRates = targetRateRepository.getMemberTarget(memId);
         List<ResTargetRateDTO> resTargetRateDTOS = new ArrayList<>();
@@ -40,7 +71,6 @@ public class ExchgService {
                     .targetRate(targetRate)
                     .country(targetRate.getCountry())
                     .currency(targetRate.getCountry().getCurrency())
-                    // 여기에 현재 환율 정보를 같이 보내야하는건가요..?
                     .build();
             resTargetRateDTOS.add(resTargetRateDTO);
         }
@@ -48,23 +78,24 @@ public class ExchgService {
     }
 
     // 통화 목록 조회
-    public List<ResCurrencyDTO> getCurrencyList(){
+    public List<ResCountryDTO> getCurrencyList(){
 
-        List<Currency> currencies = currencyRepository.findAll();
-        List<ResCurrencyDTO> resCurrencyDTOS = new ArrayList<>();
-        for(Currency currency : currencies){
-            ResCurrencyDTO resCurrencyDTO = ResCurrencyDTO.builder()
-                    .curId(currency.getCurId())
-                    .code(currency.getCode())
-                    .name(currency.getName())
+        List<Country> currencies = countryRepository.findAll();
+        List<ResCountryDTO> resCountryDTOS = new ArrayList<>();
+        for(Country country : currencies){
+            ResCountryDTO resCurrencyDTO = ResCountryDTO.builder()
+                    .ctrId(country.getCtrId())
+                    .curId(country.getCurrency().getCurId())
+                    .code(country.getCurrency().getCode())
+                    .name(country.getName())
                     .build();
-            resCurrencyDTOS.add(resCurrencyDTO);
+            resCountryDTOS.add(resCurrencyDTO);
         }
 
-        return resCurrencyDTOS;
+        return resCountryDTOS;
     }
 
-    // 환율 알림 설정
+    // 목표 환율 설정
     @Transactional
     public void setTargetRateAdd(ReqTargetRateDTO reqTargetRateDTO)throws Exception{
         boolean memberCheck= memberRepository.existsByMemId(reqTargetRateDTO.getMemId());
@@ -97,7 +128,7 @@ public class ExchgService {
 
     }
     
-    // 환율 알림 삭제
+    // 목표 환율 삭제
     @Transactional
     public void setTargetRateDelete(Long tagId){
         boolean targetRateCheck = targetRateRepository.existsByTagId(tagId);

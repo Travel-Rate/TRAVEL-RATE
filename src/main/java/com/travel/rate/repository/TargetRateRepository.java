@@ -19,4 +19,7 @@ public interface TargetRateRepository extends JpaRepository<TargetRate, Long> {
     @Query("select t, m from TargetRate t join t.member m where m.memId = :memId")
     List<TargetRate> getMemberTarget(@Param("memId") Long MemId);
 
+    @Query("select t from TargetRate t join fetch t.member tm where t.tagId = :tagId")
+    TargetRate findOneByTagId(Long tagId);
+
 }

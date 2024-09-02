@@ -45,6 +45,12 @@ public class TargetRate {
 
     }
 
+    public void update(float chgRate, int rateRange, Country country ){
+        this.chgRate = chgRate;
+        this.rateRange = rateRange;
+        this.country = country;
+    }
+
 }
 
 

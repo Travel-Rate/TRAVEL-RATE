@@ -1,7 +1,7 @@
 package com.travel.rate.controller;
 
 import com.travel.rate.dto.req.ReqTargetRateDTO;
-import com.travel.rate.dto.res.ResCurrencyDTO;
+import com.travel.rate.dto.res.ResCountryDTO;
 import com.travel.rate.dto.res.ResExchgDTO;
 import com.travel.rate.dto.res.ResTargetRateDTO;
 import com.travel.rate.service.EmailService;
@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Currency;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,13 +21,26 @@ public class ExchgController {
     private final ExchgService exchgService;
     private final EmailService emailService;
 
-    // 목표환율 상세 조회
-    @GetMapping("target/{tagId}")
-    public void getTargetDetail(@PathVariable("tagId") Long tagId){
-
+    // 목표환율 수정
+    @PutMapping("target/{tagId}")
+    public ResponseEntity<String> setTargetRateUpdate(@PathVariable Long tagId, @RequestBody ReqTargetRateDTO reqTargetRateDTO) {
+        System.out.println("디티오에 타겟아이디가? "+reqTargetRateDTO.getTagId());
+        System.out.println("여기에 나와야해! 타겟아이디가? "+tagId);
+        try {
+            exchgService.setTargetRateUpdate(tagId, reqTargetRateDTO);
+            return ResponseEntity.ok("목표환율 수정을 완료했습니다.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    // 사용자 목표환율 조회
+    // 목표환율 상세 조회
+    @GetMapping("target/{tagId}")
+    public ResTargetRateDTO getTargetDetail(@PathVariable("tagId") Long tagId){
+        return exchgService.getTargetDetail(tagId);
+    }
+
+    // 사용자 목표환율 목록 조회
     @GetMapping("target/list/{memId}")
     public List<ResTargetRateDTO> getMemberTargetRateList(@PathVariable("memId") Long memId){
         return exchgService.getMemberTargetRateList(memId);
@@ -36,7 +48,7 @@ public class ExchgController {
 
     // 통화 목록 조회
     @GetMapping("currencies")
-    public List<ResCurrencyDTO> getCurrencyList(){
+    public List<ResCountryDTO> getCurrencyList(){
         return exchgService.getCurrencyList();
     }
 
