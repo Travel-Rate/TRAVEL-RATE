@@ -1,18 +1,32 @@
 package com.travel.rate.utils;
 
-import com.travel.rate.exception.CustomJWTException;
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Map;
 
+import com.travel.rate.exception.CustomJWTException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.InvalidClaimException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class JWTUtill {
     @Value("${jwt-key}")
+    String keyValue;
+
+    @PostConstruct
+    public void init(){
+        key = keyValue;
+    }
+
     private static String key;
 
     public static String generateToken(Map<String, Object> valueMap, int day){
@@ -59,4 +73,5 @@ public class JWTUtill {
 
         return claim;
     }
+
 }

@@ -1,7 +1,10 @@
 package com.travel.rate.controller;
 
 import com.travel.rate.domain.Member;
+import com.travel.rate.dto.member.ReqLoginDTO;
 import com.travel.rate.dto.req.ReqMemberDTO;
+import com.travel.rate.service.CardService;
+import com.travel.rate.service.JwtService;
 import com.travel.rate.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +20,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
+    private final JwtService jwtService;
+
+    @PostMapping("login")
+    public ResponseEntity login(@RequestBody ReqLoginDTO reqLoginDTO) {
+        return ResponseEntity.ok().body(jwtService.generateAccessToken(reqLoginDTO));
+    }
 
 //    ----------------------------------- 기준선
 
