@@ -58,6 +58,19 @@ export const SearchBar = ({ onSearchClick }) => {
 
     const searchBarClass = `${styles.SearchBar} ${isTravelClicked || isBudgetClicked ? styles.inactive : ''}`
 
+    const handleSubmit = () => {
+        if (isTravelClicked && isBudgetClicked) {
+            onSearchClick()
+            setIsTabVisible(false)
+            setIsTabVisible2(false)
+            setIsBudgetClicked(false)
+            setIsTravelClicked(false)
+        } else {
+            alert('대륙선택과 예산입력을 완료해주세요.')
+        }
+    }
+
+
     return (
         <div className={styles.MainContainer}>
             <form className={searchBarClass}>
@@ -93,7 +106,7 @@ export const SearchBar = ({ onSearchClick }) => {
                             </div>
                         </ul>
 
-                        <div>
+                        <div className={styles.TabContentContainer}>
                             {Array.isArray(tabContArr[activeIndex].tabCont) ? (
                                 tabContArr[activeIndex].tabCont.map((item, idx) => (
                                     <span key={idx} className={styles.TabContentItem}>
@@ -133,24 +146,24 @@ export const SearchBar = ({ onSearchClick }) => {
 
                 {isTabVisible2 && (
                     <div className={styles.BudgetSetting}>
-                        <p>예산 입력</p>
+                        <p className={styles.BudgetSettingTitle}>예산 입력</p>
                         <div className={styles.BudgetSettingInputContainer}>
                             <input autoFocus className={styles.BudgetSettingInput} placeholder="원화로 예산을 입력하세요." />
                             <span className={styles.won}>원</span>
                             <p className={styles.line}></p>
                         </div>
-                        <p>입력하신 예산을 기준으로 가장 가성비 좋은 여행지를 추천해드려요!</p>
-                        <button className={styles.ContinentBtn}>완료</button>
+                        <p className={styles.BudgetSettingSubtext}>입력하신 예산을 기준으로 가장 가성비 좋은 여행지를 추천해드려요!</p>
+                        <button className={styles.BudgetBtn}>완료</button>
                     </div>
                 )}
 
              
                 <img className={styles.SearchImg} onClick={() => {
-                    onSearchClick()
                     setIsTabVisible(false)
                     setIsTabVisible2(false)
                     setIsBudgetClicked(false)
                     setIsTravelClicked(false)
+                    handleSubmit()
                     }} src="/search.svg" alt="searchButton" />
               
             </form>
