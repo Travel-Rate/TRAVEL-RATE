@@ -28,7 +28,7 @@
 .TabSetting, .BudgetSetting {
   text-align: center;
   padding: 10px 40px 40px 40px;
-  width: 50%;
+  width: 70%;
   background-color: white;
   border-radius: 40px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -37,9 +37,8 @@
 }
 
 .BudgetSetting {
-  text-align: center;
-  padding: 10px 40px 40px 40px;
-  width: 50%;
+  padding: 50px 80px 60px 80px;
+  width: 40%;
   background-color: white;
   border-radius: 40px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -48,11 +47,16 @@
   right: 0;
 }
 
+.BudgetSettingTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4f4f4f;
+}
+
 .BudgetSettingInput {
   -webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-  margin-left: 10%;
   outline: none;
   width: 80%;
   outline: none;
@@ -69,10 +73,18 @@
 
 .won {
   font-size: 1.7rem;
+  position: absolute;
+  right: 0;
+  opacity: 20%;
+  font-weight: 700;
 }
 
 .BudgetSettingInputContainer {
   position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
 }
 
 .line {
@@ -82,7 +94,7 @@
 
   &:after {
     content: '';
-    width: 80%;
+    width: 100%;
     height: 2px;
     background: #222222;
     opacity: 30%;
@@ -90,7 +102,7 @@
     position: absolute;
     transition: transform 250ms ease-in-out;
     bottom: 0;
-    left: 10%;
+    left: 0;
     animation: underline-slide 1s ease forwards;
   }
 }
@@ -102,6 +114,12 @@
   to {
     transform: scaleX(1);
   }
+}
+
+.BudgetSettingSubtext {
+  color: #a5a5a5;
+  font-weight: 700;
+  font-size: 0.7rem;
 }
 
 .TabList {
@@ -121,9 +139,9 @@
   cursor: pointer;
   transition: opacity 180ms ease-out;
   outline: 0;
-  font-weight: 900;
+  font-weight: 700;
   color: lightgray;
-
+  font-size: 0.9rem;
   &.isActive {
     color: black;
   }
@@ -148,21 +166,24 @@
   z-index: 2;
 }
 
+.TabContentContainer{
+  width: 100%;
+}
+
 .TabContentItem {
   display: inline-block;
   margin: 5px;
   padding: 10px 20px;
-  min-width: 80px;
-  max-width: 80px;
+  min-width: 70px;
+  max-width: 70px;
   background-color: #ebebeb;
   border-radius: 20px;
-  font-size: 14px;
+  font-size: 12px;
   color: #787878;
 }
 
-.ContinentBtn {
+.ContinentBtn, .BudgetBtn {
   border: none;
-  // border: 1px solid #7F9AED;
   box-shadow: 0 1px 8px rgba(127, 154, 237, 0.8);
   background-color: #fff;
   border-radius: 30px;
