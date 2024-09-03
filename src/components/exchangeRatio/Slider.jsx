@@ -6,11 +6,7 @@ export default function Slider() {
     const [sliderValue, setSliderValue] = useState(0);
     const [warning, setWarning] = useState(false)
     const handleSliderChange = (event) => {
-<<<<<<< HEAD
-        const inputValue = event.target.value.replace(/[^0-9]/g, '');
-=======
         const inputValue = event.target.value
->>>>>>> features/exchage-ratio-section
         if (inputValue < 0 || inputValue > 5000) {
             setWarning(true)
         }
@@ -47,11 +43,7 @@ export default function Slider() {
                     <input type="text" 
                
                     className={styles.textInput}
-<<<<<<< HEAD
-                    value={`${sliderValue}원`}
-=======
                     value={sliderValue}
->>>>>>> features/exchage-ratio-section
                     onChange={handleSliderChange}
                     />
                     
