@@ -63,6 +63,7 @@ public class TravelService {
         dto.setCountryId(one.getCtrId());
         dto.setCountryName(one.getName());
         dto.setSeason(one.getSeason());
+        dto.setDescription(one.getDescription());
         return dto;
     }
 

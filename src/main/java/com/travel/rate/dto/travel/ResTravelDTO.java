@@ -18,4 +18,5 @@ public class ResTravelDTO {
     Long countryId;
     String countryName;
     String season;
+    String description;
 }

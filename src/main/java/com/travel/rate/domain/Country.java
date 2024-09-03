@@ -21,6 +21,9 @@ public class Country {
     @NotNull
     private boolean state;// 여행 가능 true, 금지 false
 
+    @NotNull
+    private String description;
+
     @ManyToOne
     @JoinColumn(name="cur_id")
     private Currency currency;
