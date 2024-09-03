@@ -8,6 +8,7 @@ import com.travel.rate.repository.MemberRepository;
 import com.travel.rate.utils.JWTUtill;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class JwtService {
     private final MemberRepository memberRepository;
     private final JWTUtill jwtUtill;
+    private final PasswordEncoder passwordEncoder;
 
     public String generateAccessToken(ReqLoginDTO dto){
         String accessToken = "";
@@ -27,7 +29,7 @@ public class JwtService {
             log.info("member = {}", entity.getPassword());
 
             if (entity == null) throw new BusinessExceptionHandler(ResponseCode.USER_NOT_FOUND);
-            if (!dto.getPassword().equals(entity.getPassword())) throw new BusinessExceptionHandler(ResponseCode.WRONG_PASSWORD);
+            if (passwordEncoder.matches(dto.getPassword(), entity.getPassword())) throw new BusinessExceptionHandler(ResponseCode.WRONG_PASSWORD);
             accessToken = jwtUtill.generateToken(converToMap(entity), 7);
 
             entity.setAtk(accessToken);
