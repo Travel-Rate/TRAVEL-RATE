@@ -62,7 +62,7 @@
     input[type="range"]::-webkit-slider-runnable-track {
         width: 100%;
         height: 40px; /* Track 높이 설정 */
-        background: gray; /* Track 색상 */
+        background: #7b7b7b; /* Track 색상 */
         border-radius: 30px;
         cursor: pointer;
         -webkit-appearance: none; 
@@ -90,15 +90,11 @@
         background-color: #7F9BED;
         border-radius: 50%;
         cursor: pointer;
-<<<<<<< HEAD
+
         box-shadow: 1px 1px 1px #000000;
-=======
-        box-shadow: 4px 4px 10px #7F9BED;
-<<<<<<< HEAD
->>>>>>> af1dac4 (feat:exchange-ratio-page1)
-=======
->>>>>>> f5e8fd2 (feat:exchange-ratio-page1)
->>>>>>> fc36a8a (feat:exchange-ratio-page1)
+
+
+
         position: relative;
         top: -35px; 
     }

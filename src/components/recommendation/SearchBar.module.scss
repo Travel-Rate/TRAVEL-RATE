@@ -6,17 +6,9 @@
 
 .SearchBar {
   display: flex;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  width: 80%;
-=======
-=======
->>>>>>> 56c9fea (feat: Recommendation page 1)
   align-items: center;
   width: 60%;
   height: 100px;
->>>>>>> 958359b (feat: recommendation section edit)
   position: relative;
   background-color: white;
   border-radius: 50px;
@@ -27,21 +19,10 @@
 
 .inactive {
   background-color: #ebebeb;
-=======
-  width: 70%;
-  position: relative;
-  background-color: gray;
-  border-radius: 50px;
-<<<<<<< HEAD
->>>>>>> 60918ff (feat: Recommendation page 1)
-=======
->>>>>>> 3988754 (feat: Recommendation page 1)
->>>>>>> 56c9fea (feat: Recommendation page 1)
 }
 
 .TabSetting {
   text-align: center;
-<<<<<<< HEAD
   padding: 10px 40px 40px 40px;
   width: 50%;
   background-color: white;
@@ -61,26 +42,6 @@
   position: absolute;
   top: 120%;
   right: 0;
-=======
-  padding: 0 40px 40px 40px;
-  width: 50%;
-  background-color: white;
-  border: 1px solid #a5acb1;
-  border-radius: 5px;
-  position: absolute;
-  top: 120%;
-  right: 40%;
-}
-
-.BudgetSetting {
-  padding: 0 5%;
-  width: 50%;
-  border: 1px solid #a5acb1;
-  background-color: white;
-  position: absolute;
-  top: 120%;
-  right: 5%;
->>>>>>> 60918ff (feat: Recommendation page 1)
 }
 
 .BudgetSettingInput {
@@ -138,26 +99,6 @@
   to {
     transform: scaleX(1);
   }
-=======
-  padding: 0 40px 40px 40px;
-  width: 50%;
-  background-color: white;
-  border: 1px solid #a5acb1;
-  border-radius: 5px;
-  position: absolute;
-  top: 120%;
-  right: 40%;
-}
-
-.BudgetSetting {
-  padding: 0 5%;
-  width: 50%;
-  border: 1px solid #a5acb1;
-  background-color: white;
-  position: absolute;
-  top: 120%;
-  right: 5%;
->>>>>>> 3988754 (feat: Recommendation page 1)
 }
 
 .TabList {
@@ -204,7 +145,6 @@
   z-index: 2;
 }
 
-<<<<<<< HEAD
 .TabContentItem {
   display: inline-block;
   margin: 5px;
@@ -256,46 +196,6 @@
 .inactive {
   background-color: #ebebeb;
 }
-=======
-
-.TabContentItem {
-  display: inline-block;
-  margin: 5px;
-  padding: 8px 12px;
-  background-color: lightgray;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #222222;
-}
-
-.ContinentBtn {
-  margin-top: 10%;
-  width: 20%;
-  height: 50px;
-}
-
-
-.TravelDestinationContainer {
-  width: 100%;
-  border: 1px solid gray;
-  border-radius: 50px;
-  padding-left: 4%;
-  &:hover {
-    background-color: white;
-  }
-}
-
-.BudgetContainer {
-  width: 100%;
-  border: 1px solid gray;
-  border-radius: 50px;
-  padding-left: 4%;
-  &:hover {
-    background-color: white;
-  }
-}
-
->>>>>>> 60918ff (feat: Recommendation page 1)
 
 .TravelDestination {
   font-size: 17px;
@@ -306,71 +206,16 @@
 
 .Budget {
   font-size: 17px;
-=======
-
-.TabContentItem {
-  display: inline-block;
-  margin: 5px;
-  padding: 8px 12px;
-  background-color: lightgray;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #222222;
-}
-
-.ContinentBtn {
-  margin-top: 10%;
-  width: 20%;
-  height: 50px;
-}
-
-
-.TravelDestinationContainer {
-  width: 100%;
-  border: 1px solid gray;
-  border-radius: 50px;
-  padding-left: 4%;
-  &:hover {
-    background-color: white;
-  }
-}
-
-.BudgetContainer {
-  width: 100%;
-  border: 1px solid gray;
-  border-radius: 50px;
-  padding-left: 4%;
-  &:hover {
-    background-color: white;
-  }
-}
-
-
-.TravelDestination {
-  font-size: 18px;
->>>>>>> 3988754 (feat: Recommendation page 1)
   color: #333;
   font-weight: 700;
 }
 
-<<<<<<< HEAD
 .TravelDestinationSearch, .BudgetInput {
   font-size: 14px;
   margin-top: -2.5%;
   color: #949494;
 }
 
-=======
-.TravelDestinationSearch { 
-  font-size: 16px;
-}
-
-
-<<<<<<< HEAD
->>>>>>> 60918ff (feat: Recommendation page 1)
-=======
->>>>>>> 3988754 (feat: Recommendation page 1)
->>>>>>> 56c9fea (feat: Recommendation page 1)
 .underline {
   width: 80%;
   border-bottom: 1px solid gray;
@@ -378,43 +223,14 @@
   padding-bottom: 2%;
 }
 
-<<<<<<< HEAD
-=======
-.SearchBtn {
-  border: none;
-  outline: none;
-  width: 10%;
-  background-color: transparent;
-  cursor: pointer;
-  position: absolute;
-  right: 5%;
-}
->>>>>>> 3988754 (feat: Recommendation page 1)
 
 .SearchImg {
   padding: 0;
   margin: 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  width: 100px;
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 56c9fea (feat: Recommendation page 1)
   width: 12%;
   position: absolute;
   right: 1%;
->>>>>>> 958359b (feat: recommendation section edit)
   &:hover {
     opacity: 0.5;
   }
 }
-=======
-<<<<<<< HEAD
-}
->>>>>>> 60918ff (feat: Recommendation page 1)
-=======
-  width: 100px;
-}
->>>>>>> 3988754 (feat: Recommendation page 1)
->>>>>>> 56c9fea (feat: Recommendation page 1)
