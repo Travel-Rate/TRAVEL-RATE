@@ -123,6 +123,7 @@
     border-radius: 30px;
     margin-left: 5%;
     margin-bottom: -10%;
+    height: 30vh;
 }
 
 .lowerSideContentsInner {
@@ -145,12 +146,19 @@
     font-weight: bolder;
 }
 
-.lowerSideCountry1, .lowerSideCountry2, .lowerSideCountry3 {
+.lowerSideCountry {
     display: flex;
     align-items:center;
     padding: 10px 0;
     gap: 30px;
 }
+
+// .lowerSideCountry1, .lowerSideCountry2, .lowerSideCountry3 {
+//     display: flex;
+//     align-items:center;
+//     padding: 10px 0;
+//     gap: 30px;
+// }
 
 .lowerSideCountry1Name{
     

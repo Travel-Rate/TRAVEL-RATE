@@ -1,0 +1,57 @@
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginInnerContainer{
+    border: 2px solid #dedede;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    width: 50vw;
+    height: 70vh;
+    margin-top: 10vh;
+
+    flex-direction: column;
+    justify-content: center; /* 내부 콘텐츠를 수직 중앙 정렬 */
+    align-items: center; /* 내부 콘텐츠를 수평 중앙 정렬 */
+}
+
+
+.loginTitle{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.emailInput, .pwInput {
+    width: 80%; /* 입력 필드의 너비 조정 */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    display: flex; /* 플렉스 박스로 설정해 내부 콘텐츠 조정 */
+    align-items: center;
+    box-sizing: border-box; /* 패딩 포함된 전체 크기 계산 */
+}
+
+.emailInput input, .pwInput input {
+    border: none;
+}
+
+.pwImg{
+  
+}
+
+.loginBtn {
+    width: 80%;
+    height: 50px;
+    border-radius: 30px;
+
+}
+
+.linkBox {
+    width:100%;
+  
+}
