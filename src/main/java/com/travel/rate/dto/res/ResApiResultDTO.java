@@ -6,27 +6,30 @@ import org.springframework.http.HttpStatus;
 @Data
 @NoArgsConstructor
 @ToString
-public class ResApiResultDTO{
+public class ResApiResultDTO<T>{
     //  상태코드, 메세지, 데이터 등 응답정보를 담는 DTO
-    private int status;
-    private String message;
-    private ResApiExceptionEntity exception;
-    private Object data;
+    private ApiHeader header;
+    private T data;
+    private String msg;
 
-    public ResApiResultDTO(int status, String message, ResApiExceptionEntity exception, Object data) {
-        this.status = status;
-        this.message = message;
-        this.exception = exception;
+    private static final int SUCCESS = 200;
+
+    private ResApiResultDTO(ApiHeader header, T data, String msg) {
+        this.header = header;
         this.data = data;
+        this.msg = msg;
     }
 
-    public static ResApiResultDTO res(final int statusCode, final String responseMessage) {
-        return res(statusCode, responseMessage, null);
+    public static <T> ResApiResultDTO<T> success(T data, String message) {
+        return new ResApiResultDTO<T>(new ApiHeader(SUCCESS, "SUCCESS"), null, message);
     }
 
-    public static ResApiResultDTO res(final int status, final String message, final Object obj) {
-            ResApiResultDTO resApiResultDTO = new ResApiResultDTO(status, message, null, obj);
-        return resApiResultDTO;
+    public static <T> ResApiResultDTO<T> dataOk(T data, String message) {
+        return new ResApiResultDTO<T>(new ApiHeader(SUCCESS, "SUCCESS"), data, message);
+    }
+
+    public static <T> ResApiResultDTO<T> fail(ResponseCode responseCode, T data) {
+        return new ResApiResultDTO<T>(new ApiHeader(responseCode.getHttpStatusCode(), responseCode.getMessage()), data, responseCode.getMessage());
     }
 
 }

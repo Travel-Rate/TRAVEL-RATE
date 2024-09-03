@@ -1,27 +1,21 @@
 package com.travel.rate.exception;
 
-import com.travel.rate.dto.res.ErrorCode;
+import com.travel.rate.dto.res.ResponseCode;
 import com.travel.rate.dto.res.ResApiExceptionEntity;
 import com.travel.rate.dto.res.ResApiResultDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessExceptionHandler.class)
-    public ResponseEntity<ResApiResultDTO> handleCustomException(BusinessExceptionHandler e) {
-        ResApiExceptionEntity resApiExceptionEntity = ResApiExceptionEntity.builder()
-                .status(ErrorCode.BUSINESS_EXCEPTION_ERROR.getStatus())
-                .errorMessage(ErrorCode.BUSINESS_EXCEPTION_ERROR.getMessage())
-                .build();
-        ResApiResultDTO resApiResultDTO = new ResApiResultDTO();
-            resApiResultDTO.setStatus(400);
-            resApiResultDTO.setMessage("");
-            resApiResultDTO.setData(resApiExceptionEntity);
-        return ResponseEntity.status(ErrorCode.BUSINESS_EXCEPTION_ERROR.getStatus())
-                .body(resApiResultDTO);
+    public ResApiResultDTO<Void> handleCustomException(BusinessExceptionHandler e) {
+        log.info("BusinessException: {}", e.getMessage());
+        return ResApiResultDTO.fail(e.getResponseCode(), null);
     }
 
 }

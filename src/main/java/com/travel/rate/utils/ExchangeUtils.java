@@ -56,7 +56,7 @@ public class ExchangeUtils {
                         .build())
                 .retrieve()
                 .bodyToMono(String.class)
-                .retryWhen(Retry.backoff(3, Duration.ofSeconds(5))
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(7))
                         .filter(throwable -> throwable instanceof WebClientRequestException ||
                                 throwable instanceof SSLHandshakeException ||
                                 throwable instanceof SocketException)

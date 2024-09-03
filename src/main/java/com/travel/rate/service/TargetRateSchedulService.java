@@ -71,13 +71,13 @@ public class TargetRateSchedulService {
                         System.out.println("------내 목표 환율 설정" + targetChgRate);
                         System.out.println("한국 수출입 은행의 환유우우우우우우욹" + exchangeDeal);
                         System.out.println("이때 멤버 아이디는?!" + targetMemberEmail);
-//                        emailService.sendSimpleMail(
-//                                targetMemberEmail,
-//                                targetMemberName,
-//                                targetName,
-//                                targetCode,
-//                                Float.toString(targetChgRate)
-//                        );
+                        emailService.sendSimpleMail(
+                                targetMemberEmail,
+                                targetMemberName,
+                                targetName,
+                                targetCode,
+                                Float.toString(targetChgRate)
+                        );
                         break targetLoop;
                     }
                 }

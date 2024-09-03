@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JWTUtill {
-    @Value("${jwt-key}")
+//    @Value("${jwt-key}")
     String keyValue;
 
     @PostConstruct

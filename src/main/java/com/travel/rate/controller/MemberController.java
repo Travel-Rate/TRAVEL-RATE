@@ -3,6 +3,8 @@ package com.travel.rate.controller;
 import com.travel.rate.domain.Member;
 import com.travel.rate.dto.member.ReqLoginDTO;
 import com.travel.rate.dto.req.ReqMemberDTO;
+import com.travel.rate.dto.res.ResApiResultDTO;
+import com.travel.rate.dto.res.ResponseCode;
 import com.travel.rate.service.CardService;
 import com.travel.rate.service.JwtService;
 import com.travel.rate.service.MemberService;
@@ -11,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -45,25 +48,16 @@ public class MemberController {
 
     // 아이디 중복 확인
     @PostMapping("check")
-    public ResponseEntity<String> getEmailFind(@RequestBody ReqMemberDTO reqMemberDTO)throws Exception{
-        try {
-            memberService.getEmailFind(reqMemberDTO);
-            return ResponseEntity.ok("사용 가능한 이메일입니다.");
-        } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.ok("이미 등록된 이메일입니다.");
-        }
+    public ResApiResultDTO<String> getEmailFind(@RequestBody ReqMemberDTO reqMemberDTO){
+        memberService.getEmailFind(reqMemberDTO);
+        return ResApiResultDTO.success(ResponseCode.USER_ALREADY_EXIST.getMessage(),null);
     }
 
     // 회원가입
     @PostMapping("create")
-    public ResponseEntity<String> setMemberAdd(@RequestBody ReqMemberDTO reqMemberDTO)throws Exception{
-        System.out.println(reqMemberDTO.toString());
-        try {
-            memberService.setMemberAdd(reqMemberDTO);
-            return ResponseEntity.ok("회원가입을 성공했습니다.");
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 중 오류가 발생했습니다. 다시 시도해 주세요.");
-        }
+    public ResApiResultDTO<Object> setMemberAdd(@RequestBody ReqMemberDTO reqMemberDTO)throws Exception{
+        memberService.setMemberAdd(reqMemberDTO);
+        return ResApiResultDTO.success(ResponseCode.INTERNAL_SERVER_ERROR.getMessage(),null);
     }
 
 }
