@@ -29,7 +29,7 @@ public class JwtService {
             log.info("member = {}", entity.getPassword());
 
             if (entity == null) throw new BusinessExceptionHandler(ResponseCode.USER_NOT_FOUND);
-            if (passwordEncoder.matches(dto.getPassword(), entity.getPassword())) throw new BusinessExceptionHandler(ResponseCode.WRONG_PASSWORD);
+            if (!passwordEncoder.matches(dto.getPassword(), entity.getPassword())) throw new BusinessExceptionHandler(ResponseCode.WRONG_PASSWORD);
             accessToken = jwtUtill.generateToken(converToMap(entity), 7);
 
             entity.setAtk(accessToken);

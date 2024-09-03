@@ -32,7 +32,6 @@ public class TravelService {
         log.info("{}", map);
 
         List<Country> countryList = continentRepository.findById(dto.getContinent_id()).get().getCountryList();
-        log.info(countryList.toString());
 
         List<Currency> top3Currencies = getTop3Currencies(countryList, map);
 
