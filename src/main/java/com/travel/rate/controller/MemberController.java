@@ -28,20 +28,20 @@ public class MemberController {
     private final JwtService jwtService;
 
     @PostMapping("login")
-    public ResponseEntity login(@RequestBody ReqLoginDTO reqLoginDTO) {
-        return ResponseEntity.ok().body(jwtService.generateAccessToken(reqLoginDTO));
+    public ResApiResultDTO login(@RequestBody ReqLoginDTO reqLoginDTO) {
+        return ResApiResultDTO.success(jwtService.generateAccessToken(reqLoginDTO), "로그인 성공");
     }
 
     @PostMapping("logout")
-    public ResponseEntity logout(@RequestHeader("Authorization") String authorizationHeader){
+    public ResApiResultDTO logout(@RequestHeader("Authorization") String authorizationHeader){
         jwtService.logout(authorizationHeader);
-        return ResponseEntity.ok().body("로그아웃");
+        return ResApiResultDTO.success(null, "로그아웃 성공");
     }
 
     @PostMapping("test")
-    public ResponseEntity test(@RequestHeader("Authorization") String authorizationHeader){
+    public ResApiResultDTO test(@RequestHeader("Authorization") String authorizationHeader){
         Map<String, Object> map = jwtService.validateTokenAndGetMember(authorizationHeader);
-        return ResponseEntity.ok().body("로그인중인 유저 : "+map);
+        return ResApiResultDTO.success(map, "토큰 테스트");
     }
 
 //    ----------------------------------- 기준선

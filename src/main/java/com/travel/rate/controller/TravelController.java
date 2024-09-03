@@ -1,5 +1,6 @@
 package com.travel.rate.controller;
 
+import com.travel.rate.dto.res.ResApiResultDTO;
 import com.travel.rate.dto.travel.ReqTravelDTO;
 import com.travel.rate.repository.CardRepository;
 import com.travel.rate.service.CardService;
@@ -19,16 +20,14 @@ public class TravelController {
     private final CardService cardService;
 
     @PostMapping("countries")
-    public ResponseEntity travel(@RequestBody ReqTravelDTO reqTravelDTO){
+    public ResApiResultDTO travel(@RequestBody ReqTravelDTO reqTravelDTO){
         // 여행지 3개 추천
-        return ResponseEntity.ok()
-                .body(travelService.makeCountryRecommandation(reqTravelDTO));
+        return ResApiResultDTO.success(travelService.makeCountryRecommandation(reqTravelDTO), null);
     }
 
     @GetMapping("{country_id}/cards")
-    public ResponseEntity cards(@PathVariable("country_id") Long ctrId){
+    public ResApiResultDTO cards(@PathVariable("country_id") Long ctrId){
         // 나라에 해당하는 카드 필터링 3개 추천
-        return ResponseEntity.ok()
-                .body(cardService.get3Cards(ctrId));
+        return ResApiResultDTO.success(cardService.get3Cards(ctrId), null);
     }
 }
