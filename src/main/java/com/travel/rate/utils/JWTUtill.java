@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Map;
 
+import com.travel.rate.dto.res.ResponseCode;
 import com.travel.rate.exception.CustomJWTException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -14,9 +15,11 @@ import io.jsonwebtoken.InvalidClaimException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class JWTUtill {
     @Value("${jwt-key}")
@@ -60,15 +63,15 @@ public class JWTUtill {
                     .parseClaimsJws(token)
                     .getBody();
         } catch  (MalformedJwtException malformedJwtException) {
-            throw new CustomJWTException("MalFormed");
+            throw new CustomJWTException(ResponseCode.MALFUNTIONED_TOKEN);
         } catch (ExpiredJwtException expiredJwtException) {
-            throw new CustomJWTException("Expired");
+            throw new CustomJWTException(ResponseCode.EXPIRED_ACCESS_TOKEN);
         } catch (InvalidClaimException invalidClaimException) {
-            throw new CustomJWTException("Invalid");
+            throw new CustomJWTException(ResponseCode.INVALID_ACCESS_TOKEN);
         } catch (JwtException jwtException) {
-            throw new CustomJWTException("JWTError");
+            throw new CustomJWTException(ResponseCode.INVALID_ACCESS_TOKEN);
         } catch (Exception e) {
-            throw new CustomJWTException("Error");
+            throw new CustomJWTException(ResponseCode.INVALID_ACCESS_TOKEN);
         }
 
         return claim;

@@ -18,4 +18,10 @@ public class GlobalExceptionHandler {
         return ResApiResultDTO.fail(e.getResponseCode(), null);
     }
 
+    @ExceptionHandler(CustomJWTException.class)
+    public ResApiResultDTO<Void> handleCustomException(CustomJWTException e){
+        log.info("CustomJWTException: {}", e.getMessage());
+        return ResApiResultDTO.fail(e.getResponseCode(), null);
+    }
+
 }

@@ -2,7 +2,9 @@ package com.travel.rate.service;
 
 import com.travel.rate.domain.Card;
 import com.travel.rate.domain.Country;
+import com.travel.rate.dto.res.ResponseCode;
 import com.travel.rate.dto.travel.ResCardDTO;
+import com.travel.rate.exception.BusinessExceptionHandler;
 import com.travel.rate.repository.CardRepository;
 import com.travel.rate.repository.CountryRepository;
 import lombok.AllArgsConstructor;
@@ -26,11 +28,6 @@ public class CardService {
         String countryName = getCountryName(ctrId);
 
         List<Card> cardList = cardRepository.findCardsByPreferredCountryContaining(countryName);
-
-        System.out.println("===================================");
-        System.out.println(countryName);
-        System.out.println(cardList);
-        System.out.println("===================================");
 
         if(cardList.size()==0) return null;
 
@@ -58,6 +55,6 @@ public class CardService {
            Country country = countryRepository.findById(ctrId).get();
            return country.getName();
         }
-        else return "없음";
+        else throw new BusinessExceptionHandler(ResponseCode.COUNTRY_NOT_FOUND);
     }
 }

@@ -2,6 +2,8 @@ package com.travel.rate.service;
 
 import com.travel.rate.domain.Member;
 import com.travel.rate.dto.member.ReqLoginDTO;
+import com.travel.rate.dto.res.ResponseCode;
+import com.travel.rate.exception.BusinessExceptionHandler;
 import com.travel.rate.repository.MemberRepository;
 import com.travel.rate.utils.JWTUtill;
 import lombok.AllArgsConstructor;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @AllArgsConstructor
@@ -25,8 +26,8 @@ public class JwtService {
             log.info("member = {}", entity.getEmail());
             log.info("member = {}", entity.getPassword());
 
-            if (entity == null)  return null;
-            if (!dto.getPassword().equals(entity.getPassword())) return null;
+            if (entity == null) throw new BusinessExceptionHandler(ResponseCode.USER_NOT_FOUND);
+            if (!dto.getPassword().equals(entity.getPassword())) throw new BusinessExceptionHandler(ResponseCode.WRONG_PASSWORD);
             accessToken = jwtUtill.generateToken(converToMap(entity), 7);
 
             entity.setAtk(accessToken);
@@ -45,19 +46,20 @@ public class JwtService {
         return map;
     }
 
-    public String logout(String accessToken){
+    public boolean logout(String accessToken){
 
         Member entity = memberRepository.findByAtk(accessToken);
-        if(entity==null) return "이미 로그아웃된 유저";// TODO 예외처리하기
+        if(entity==null){
+            throw new BusinessExceptionHandler(ResponseCode.LOGOUTED_MEMBER_WARN);
+        }
         entity.setAtk(null);
         memberRepository.save(entity);
-        return "로그아웃 완료";
+        return true;
     }
 
     public Map<String, Object> validateTokenAndGetMember(String accessToken){
         Member entity = memberRepository.findByAtk(accessToken);
-        if(entity==null) { return null;
-        }
+        if(entity==null) throw new BusinessExceptionHandler(ResponseCode.INVALID_ACCESS_TOKEN);
         Map<String,Object> map = jwtUtill.validateToken(accessToken);
         return map;
     }
