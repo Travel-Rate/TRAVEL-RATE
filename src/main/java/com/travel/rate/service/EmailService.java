@@ -30,8 +30,10 @@ public class EmailService {
 
 
         String email="zpfhzpfh112@naver.com";
-        String text = "안녕하세요"+targetMemberName+"회원님, 회원님께서 설정한 "+targetCode+targetName+
-                      "의 목표 환율 "+targetChgRate+"에 도달하여 메일 드립니다. 행복한 여행계획에 도움이 되길 바라며 많은 이용 부탁드립니다. 감사합니다";
+        String br = System.getProperty("line.separator").toString();
+        String text = "안녕하세요. "+targetMemberName+"회원님,"+br+
+                      " 회원님께서 설정한 "+targetCode+targetName+
+                      "의 목표 환율 "+targetChgRate+"에 도달하여 메일 드립니다."+br;
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
