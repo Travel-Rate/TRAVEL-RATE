@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,6 +29,7 @@ public class TravelService {
     public List<ResTravelDTO> makeCountryRecommandation(ReqTravelDTO dto){
         // 수출입은행 환율 조회값 <통화코드, 환율>
         Map<String, Double> map = exchangeUtils.getExchgMap();
+        log.info("{}", map);
 
         List<Country> countryList = continentRepository.findById(dto.getContinent_id()).get().getCountryList();
         log.info(countryList.toString());
@@ -43,9 +46,16 @@ public class TravelService {
         return resTravelDTOList;
     }
 
-    public ResTravelDTO convertToResTravelDTO(Currency currency, double exchangeRate, Long originalBudget){
+    public ResTravelDTO convertToResTravelDTO(Currency currency, double exchangeRate, int originalBudget){
         ResTravelDTO dto = new ResTravelDTO();
-        dto.setBudget( (long) (originalBudget / exchangeRate) );
+        log.info("RATE={}", exchangeRate);
+        int ex = (int) Math.ceil(exchangeRate);
+        log.info("ex={}", ex);
+        log.info("origin={}", originalBudget);
+
+        int convertedBudget = Math.round(originalBudget / ex);
+
+        dto.setBudget( convertedBudget );
         dto.setCurrencyId(currency.getCurId());
         dto.setCurrencyCode(currency.getCode());
         dto.setCurrencyName(currency.getName());

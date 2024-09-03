@@ -7,6 +7,6 @@ import lombok.Data;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Data
 public class ReqTravelDTO {
-    Long budget;
+    int budget;
     Long continent_id;
 }

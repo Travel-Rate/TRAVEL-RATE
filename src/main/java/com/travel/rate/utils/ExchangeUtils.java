@@ -150,7 +150,10 @@ public class ExchangeUtils {
         if (jsonNode != null && jsonNode.isArray()) {
 
             for (JsonNode node : jsonNode) {
-                map.put(node.get("cur_unit").asText(), node.get("deal_bas_r").asDouble());
+                map.put(
+                        node.get("cur_unit").asText(),
+                        Double.parseDouble(node.get("deal_bas_r").asText().replace(",", ""))
+                );
             }
         }
 
