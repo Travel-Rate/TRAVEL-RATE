@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
 }
 
 .loginInnerContainer{
@@ -11,8 +11,9 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     width: 40%;
-    height: 50%;
-    margin-top: 5vh;
+    height: 70%;
+    margin-top: -5%;
+
 
     flex-direction: column;
     justify-content: center;
@@ -62,12 +63,12 @@
 
 
 .pwImg{
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   display: inline-block;
   position:absolute;
   margin-left: 31%;
-  margin-top: -65px;
+  margin-top: -55px;
 }
 
 .loginBtn {
