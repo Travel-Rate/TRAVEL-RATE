@@ -28,6 +28,7 @@ public enum ResponseCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, false, "사용자를 찾을 수 없습니다."),
     COUNTRY_NOT_FOUND(HttpStatus.NOT_FOUND, false, "나라를 찾을 수 없습니다."),
     TARGET_NOT_FOUND(HttpStatus.NOT_FOUND, false, "이미 삭제됬거나 환율 설정을 찾을 수 없습니다."),
+    RATE_NOT_FOUND(HttpStatus.NOT_FOUND, false, "지금은 영업시간이 아닙니다. 다음에 다시 이용해주세요."),
 
     // 405 Method Not Allowed
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, false, "허용되지 않은 메소드입니다."),

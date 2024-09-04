@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.rate.dto.res.ResExchgDTO;
+import com.travel.rate.dto.res.ResponseCode;
+import com.travel.rate.exception.BusinessExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,6 @@ import reactor.util.retry.Retry;
 import javax.net.ssl.SSLHandshakeException;
 import java.io.IOException;
 import java.net.SocketException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -59,7 +60,8 @@ public class ExchangeUtils {
                 .retryWhen(Retry.backoff(3, Duration.ofSeconds(7))
                         .filter(throwable -> throwable instanceof WebClientRequestException ||
                                 throwable instanceof SSLHandshakeException ||
-                                throwable instanceof SocketException)
+                                throwable instanceof SocketException ||
+                                throwable instanceof IllegalArgumentException)
                 )
                 .doOnError(this::handleError)
                 .block();
@@ -71,22 +73,30 @@ public class ExchangeUtils {
     private JsonNode parseJson(String responseBody){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readTree(responseBody);
+            JsonNode jsonNode = objectMapper.readTree(responseBody);
+            return jsonNode;
         } catch (IOException e){
             // 예외 처리
             e.printStackTrace();
             return null;
+        } catch (IllegalArgumentException e){
+            throw  new BusinessExceptionHandler(ResponseCode.RATE_NOT_FOUND);
         }
     }
 
     // 실시간 환율 전체 정보
     public List<ResExchgDTO> getExchangeDataAsDtoList() {
         JsonNode jsonNode = getExchangeDataSync();
-
         if (jsonNode != null && jsonNode.isArray()) {
+
             List<ResExchgDTO> resExchgDTOS = new ArrayList<>();
 
             for (JsonNode node : jsonNode) {
+            JsonNode contentNode = node.get("content");
+
+            if (contentNode == null || contentNode.isNull()) {
+                throw new BusinessExceptionHandler(ResponseCode.RATE_NOT_FOUND);
+            }
                 ResExchgDTO resExchgDTO = convertJsonToExchangeDto(node);
                 resExchgDTOS.add(resExchgDTO);
             }
