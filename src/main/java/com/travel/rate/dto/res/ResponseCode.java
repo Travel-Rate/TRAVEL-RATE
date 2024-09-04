@@ -47,6 +47,7 @@ public enum ResponseCode {
 
     // 201 Created
     USER_ADD_SUCCESS(HttpStatus.CREATED, true, "회원가입을 성공했습니다."),
+    USER_EMAILCHECK_SUCCESS(HttpStatus.CREATED, true, "사용 가능한 아이디입니다."),
     TARGET_CREATE_SUCCESS(HttpStatus.CREATED, true, "환율 알림 설정을 완료했습니다."),
     TARGET_DELETE_SUCCESS(HttpStatus.CREATED, true, "환율 알림 설정을 삭제했습니다."),
     // END

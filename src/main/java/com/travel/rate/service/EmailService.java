@@ -28,8 +28,6 @@ public class EmailService {
             String targetChgRate
     ) {
 
-
-        String email="zpfhzpfh112@naver.com";
         String br = System.getProperty("line.separator").toString();
         String text = "안녕하세요. "+targetMemberName+"회원님,"+br+
                       " 회원님께서 설정한 "+targetCode+targetName+
@@ -37,7 +35,7 @@ public class EmailService {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-            mimeMessageHelper.setTo(email); // 메일 수신자
+            mimeMessageHelper.setTo(targetMemberEmail); // 메일 수신자
             mimeMessageHelper.setSubject("✈travel rate✈ 회원님의 여행계획을 위한 목표 환율 알림 메일입니다."); // 메일 제목
             mimeMessageHelper.setText(setContext(getTodayDate(), text), true); // 메일 본문 내용, HTML 여부
             javaMailSender.send(mimeMessage);
