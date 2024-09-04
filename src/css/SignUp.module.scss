@@ -1,19 +1,19 @@
-.loginContainer {
+.signContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 80vh;
+    
 }
 
-.loginInnerContainer{
+.signInnerContainer{
     border: 2px solid #dedede;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     width: 40%;
-    height: 70%;
-    margin-top: -5%;
-
+    height: 90%;
+   
 
     flex-direction: column;
     justify-content: center;
@@ -21,13 +21,13 @@
 }
 
 
-.loginTitle{
+.signTitle{
     text-align: center;
     font-size: 30px;
     font-weight: bolder;
 }
 
-.emailInput input, .pwInput input {
+.emailInput input, .pwInput input{
     width: 65%; 
     border-radius: 30px;
     height: 50px;
@@ -57,10 +57,34 @@
     padding-left: 30px;
 }
 
+.nameInput input {
+    width: 65%; 
+    border-radius: 30px;
+    height: 50px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15%;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
 .pwInput input {
     position: relative;
 }
 
+
+.pwImg2 {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position:absolute;
+    margin-left: 31%;
+    margin-top: -35px;
+}
 
 .pwImg{
   width: 20px;
@@ -71,7 +95,7 @@
   margin-top: -55px;
 }
 
-.loginBtn {
+.signBtn {
     margin-top: 40px;
     width: 70%;
     height: 50px;
@@ -93,3 +117,16 @@
     align-items: center;
 }
 
+.errorBorder {
+border: 3px solid red;
+
+}
+
+.errorMessage {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: center;
+    width: 100%;
+    padding-left: 10px;
+}

@@ -1,4 +1,4 @@
-import React, { useRef, useState} from "react";
+import React, { useState} from "react";
 import Dropdown from "../components/exchangeRatio/Dropdown";
 import styles from '../css/ExchangeRatio.module.scss'
 import Slider from "../components/exchangeRatio/Slider";
@@ -8,6 +8,9 @@ const ExchangeRatio = () => {
     const [helpActive, setHelpActive] = useState(false)
     const [goalRate, setGoalRate] = useState("")
     const [submitList, setSubmitList] = useState([])
+    const [isAnimating, setIsAnimating] = useState(false);
+    
+
     const toggleHelp = () => {
         setHelpActive(!helpActive);
     }
@@ -25,6 +28,12 @@ const ExchangeRatio = () => {
         setCountries(selectedCountry)
     }
 
+
+  
+    const handleAnimationEnd = () => {
+        setIsAnimating(false); 
+    };
+
     const handleSubmit = () => {
         if (!countries || !goalRate) {
             alert('국가와 목표 환율을 모두 선택하세요.');
@@ -34,11 +43,12 @@ const ExchangeRatio = () => {
             country: countries,
             targetRate: goalRate
         }
-            if (submitList.length <= 3) {
-        setSubmitList((current)=>
-            [...current, obj])
+        if (submitList.length <= 3) {
+            setSubmitList((current)=>
+                [...current, obj])
             setCountries("")
             setGoalRate("")
+            setIsAnimating(true);
 
     } else {
         return alert('최대 3개 국가 까지 추가 가능합니다.')
@@ -52,18 +62,17 @@ const ExchangeRatio = () => {
             <main>
                 <div className={styles.upperSideContents}>
                     <div className={styles.helpcontents}>
-                <p className={styles.helpDialogue}>도움말 설정</p>
-                <div className={styles.helpCheckBox} onClick={toggleHelp}>
-                    {helpActive ?  <img src="/check.png" alt="check" style={{position:"absolute", marginTop:'-54px', marginLeft:'-27px'}}/> : ''}    
-                </div> 
-                </div>
+                        <p className={styles.helpDialogue}>도움말 설정</p>
+                        <div className={styles.helpCheckBox} onClick={toggleHelp}>
+                            {helpActive ?  <img src="/check.png" alt="check" style={{position:"absolute", marginTop:'-54px', marginLeft:'-27px'}}/> : ''}    
+                        </div> 
+                    </div>
 
                 <div className={styles.goalContents}>
-                <p className={styles.goalSetting}>목표환율 설정</p>
-                <select onChange={handleChangeCountry} name="" id=""  className={styles.dropdownContainer}>
-                    <option value="">국가를 선택해주세요</option>
-                    <Dropdown/>
-                </select>
+                    <select onChange={handleChangeCountry} name="" id=""  className={styles.dropdownContainer}>
+                        <option value="">국가를 선택해주세요</option>
+                        <Dropdown/>
+                    </select>
                 </div>
                 {helpActive && (
                         <div className={styles.helpText1}>
@@ -73,7 +82,7 @@ const ExchangeRatio = () => {
 
 
                 </div>
-                <div onChange={handleChangeRate}>
+                <div className={styles.sliderContainer} onChange={handleChangeRate}>
                 <Slider/>
                 {helpActive && (
                         <div className={styles.helpText2}>
@@ -83,8 +92,14 @@ const ExchangeRatio = () => {
                     )}
                 </div>
                 <div className={styles.alarmPlus}>
-                <img src="/add.png" alt="plus-img" onClick={handleSubmit} />
+                <img src="/add.png" alt="plus-img" onClick={handleSubmit} className={styles.plusImage}/>
                  <p>환율알림 추가</p>
+                 <img
+        src="/airplane.svg"
+        alt="plane-img"
+        onAnimationEnd={handleAnimationEnd}
+        className={`${styles.planeImg} ${isAnimating ? styles.planeAnimate : ''}`}
+      />
                  {helpActive && (
                         <div className={styles.helpText3}>
                             3. 국가명과 목표 환율을 선택한 뒤 알림추가 버튼을 누르시면 알림목록에 추가됩니다.
@@ -99,7 +114,7 @@ const ExchangeRatio = () => {
 
                     <div className={styles.lowerSideContentsInner}>
 
-                    {submitList.length < 3 && submitList.map((item, index) => (
+                    {submitList.length <= 3 && submitList.map((item, index) => (
                             <div key={index} className={styles.lowerSideCountry}>
                                 <p>국가 이름: {item.country}</p>
                                 <p>설정하신 환율(원화기준): {item.targetRate}원</p>

@@ -21,7 +21,11 @@
   background-color: #ebebeb;
 }
 
-.TabSetting {
+.inactive {
+  background-color: #ebebeb;
+}
+
+.TabSetting, .BudgetSetting {
   text-align: center;
   padding: 10px 40px 40px 40px;
   width: 70%;

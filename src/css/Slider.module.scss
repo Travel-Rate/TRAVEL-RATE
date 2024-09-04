@@ -1,10 +1,18 @@
+.SliderContainer {
+    display: flex;
+}
+
 .mainSlider {
-    width: 70% ;
+    width: 80% ;
    
 }
 
+.text {
+    position: relative;
+}
+
 .textBox {
-    width: 200px;
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,24 +20,23 @@
 }
 
 .textBoxWon {
-    width: 50px;
-    height: 50px;
-    margin-left: 50px;
-    
-}
-
-.text {
-   
-   
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10%;
+    top: 20%;
+    opacity: 30%;
 }
 
 .textInput {
+
     height: 50px;
     width: 150px;
-    font-size: 40px;
+    font-size: 25px;
     outline: none;
     appearance: none;
-    border: 5px solid #7F9BED;
+    border: none;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
     border-radius: 30px;
     padding-left: 20px;
 }
@@ -37,12 +44,10 @@
 .sliderWrapper {
     position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
     width: 100%;
-    height: 200px;
+    height: 140px;
     outline: none;
-    // overflow: hidden;
     margin: 0 auto;
     appearance: none;
     // background: #007bff; /* 슬라이더 바 색상 */
@@ -52,7 +57,7 @@
         -webkit-appearance: none;
         appearance: none;
         width: 100%;
-        height: 50px;
+        height: 30px;
         background: transparent;
         cursor: pointer;
         position: relative;
@@ -61,8 +66,8 @@
     /* Track 스타일 */
     input[type="range"]::-webkit-slider-runnable-track {
         width: 100%;
-        height: 40px; /* Track 높이 설정 */
-        background: #7b7b7b; /* Track 색상 */
+        height: 20px; /* Track 높이 설정 */
+        background: #e1e1e1; /* Track 색상 */
         border-radius: 30px;
         cursor: pointer;
         -webkit-appearance: none; 
@@ -85,8 +90,8 @@
     input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
         background-color: #7F9BED;
         border-radius: 50%;
         cursor: pointer;
@@ -96,7 +101,7 @@
 
 
         position: relative;
-        top: -35px; 
+        top: -30px; 
     }
      
 
