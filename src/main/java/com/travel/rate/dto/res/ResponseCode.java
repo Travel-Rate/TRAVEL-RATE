@@ -33,7 +33,8 @@ public enum ResponseCode {
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, false, "허용되지 않은 메소드입니다."),
 
     // 409 Conflict
-    USER_ALREADY_EXIST(HttpStatus.CONFLICT, false, "이미 가입한 사용자입니다."),
+    USER_ALREADY_EXIST(HttpStatus.CONFLICT, false, "이미 가입한 회원입니다."),
+    EMAIL_ALREADY_EXIST(HttpStatus.CONFLICT, false, "이미 사용중인 이메일입니다."),
     TARGET_ADD_FAIL(HttpStatus.CONFLICT, false, "더이상 알림 설정을 하실 수 없습니다."),
     WRONG_PASSWORD(HttpStatus.CONFLICT, false, "올바르지 않은 비밀번호 입니다."),
 
@@ -41,12 +42,13 @@ public enum ResponseCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, false, "서버에 오류가 발생하였습니다."),
 
     // 200 OK
-    TARGET_READ_SUCCESS(HttpStatus.OK, true, "환율 알림 설정 목록 조회를 성공했습니다."),
+    TARGET_READ_SUCCESS(HttpStatus.OK, true, "환율 알림 설정 조회를 성공했습니다."),
     TARGET_UPDATE_SUCCESS(HttpStatus.OK, true, "목표환율 수정을 완료했습니다."),
     USER_LOGIN_SUCCESS(HttpStatus.OK, true, "사용자 로그인 성공"),
 
     // 201 Created
     USER_ADD_SUCCESS(HttpStatus.CREATED, true, "회원가입을 성공했습니다."),
+    USER_EMAIL_SUCCESS(HttpStatus.CREATED, true, "사용 가능한 이메일입니다."),
     TARGET_CREATE_SUCCESS(HttpStatus.CREATED, true, "환율 알림 설정을 완료했습니다."),
     TARGET_DELETE_SUCCESS(HttpStatus.CREATED, true, "환율 알림 설정을 삭제했습니다."),
     // END

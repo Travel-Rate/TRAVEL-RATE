@@ -25,8 +25,7 @@ public class TargetRateSchedulService {
     private final EmailService emailService;
     private final ExchgService exchgService;
 
-//    @Scheduled(cron = "0 */5 11-19 * * ?")  // 매 5분마다, 오전 11시부터 오후 7시 55분까지 실행
-//    @Scheduled(cron = "0 */2 * * * ?") // 매일 1분마다
+    @Scheduled(cron = "0 */5 11-19 * * ?")  // 매 5분마다, 오전 11시부터 오후 7시 55분까지 실행
     public void targetRateEmail(){
         LocalDateTime now = LocalDateTime.now();
         LocalTime start = LocalTime.of(11, 0);
@@ -56,27 +55,11 @@ public class TargetRateSchedulService {
                 targetName = targetRate.getCountry().getCurrency().getName();
                 targetMemberEmail = targetRate.getMember().getEmail();
                 targetMemberName = targetRate.getMember().getName();
-                System.out.println("환율설정 목표환율 : " + targetChgRate);
-                System.out.println("환율설정 통화코드 : " + targetRate.getCountry().getCurrency().getCode());
-                System.out.println("환율설정 국가명/통화명 : " + targetRate.getCountry().getCurrency().getName());
-                System.out.println("환율설정 회원 정보 : " + targetRate.getMember().getEmail());
-                System.out.println("환율설정 회원 정보 : " + targetRate.getMember().getName());
 
                 for(ResExchgDTO resExchgDTO : resExchgDTOS){
                     exchangeCode = resExchgDTO.getCur_unit();
                     exchangeDeal = resExchgDTO.getDeal_bas_r();
-                    System.out.println("통화코드    :" + resExchgDTO.getCur_unit());
-                    System.out.println("국가/통화명 :" + resExchgDTO.getCur_nm());
-                    System.out.println("매매 기준율 :" + resExchgDTO.getDeal_bas_r());
                     if(targetCode.equals(exchangeCode) && targetChgRate.equals(exchangeDeal) ){
-                        System.out.println("----------------------------------둘의 값이 같으면 일로찍혀라!");
-                        System.out.println("----------------내 목표 환율 설정 " + tagId);
-                        System.out.println("----------------내 목표 환율 설정 " + targetCode);
-                        System.out.println("한국수출입 은행 코드으으으으으으으으으" + exchangeCode);
-                        System.out.println("------내 목표 환율 설정" + targetChgRate);
-                        System.out.println(" 국가명 통화며어어엉 " + targetName);
-                        System.out.println("한국 수출입 은행의 환유우우우우우우욹" + exchangeDeal);
-                        System.out.println("이때 멤버 아이디는?!" + targetMemberEmail);
                         emailService.sendSimpleMail(
                                 targetMemberEmail,
                                 targetMemberName,

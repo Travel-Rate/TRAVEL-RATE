@@ -2,13 +2,10 @@ package com.travel.rate.controller;
 
 import com.travel.rate.dto.req.ReqTargetRateDTO;
 import com.travel.rate.dto.res.*;
-import com.travel.rate.service.EmailService;
 import com.travel.rate.service.ExchgService;
 import com.travel.rate.service.JwtService;
-import com.travel.rate.utils.JWTUtill;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +16,6 @@ import java.util.List;
 @RequestMapping("exchange-rate/*")
 public class ExchgController {
     private final ExchgService exchgService;
-    private final EmailService emailService;
     private final JwtService jwtService;
 
     // 목표환율 수정
@@ -27,7 +23,7 @@ public class ExchgController {
     public ResApiResultDTO<String> setTargetRateUpdate(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long tagId, @RequestBody ReqTargetRateDTO reqTargetRateDTO) {
         jwtService.validateTokenAndGetMember(authorizationHeader);
         exchgService.setTargetRateUpdate(tagId, reqTargetRateDTO);
-        return ResApiResultDTO.success(ResponseCode.TARGET_UPDATE_SUCCESS.getMessage(),null);
+        return ResApiResultDTO.success(null, ResponseCode.TARGET_UPDATE_SUCCESS.getMessage());
     }
 
     // 목표환율 상세 조회
@@ -43,7 +39,7 @@ public class ExchgController {
     public ResApiResultDTO<List<ResTargetRateDTO>> getMemberTargetRateList(@RequestHeader("Authorization") String authorizationHeader, @PathVariable("memId") Long memId){
         jwtService.validateTokenAndGetMember(authorizationHeader);
         List<ResTargetRateDTO> resTargetRateDTOS = exchgService.getMemberTargetRateList(memId);
-        return ResApiResultDTO.dataOk(resTargetRateDTOS,ResponseCode.TARGET_READ_SUCCESS.getMessage());
+        return ResApiResultDTO.dataOk(resTargetRateDTOS, ResponseCode.TARGET_READ_SUCCESS.getMessage());
     }
 
     // 통화 목록 조회
@@ -57,7 +53,7 @@ public class ExchgController {
     public ResApiResultDTO<Object> setTargetRateAdd(@RequestHeader("Authorization") String authorizationHeader, @RequestBody ReqTargetRateDTO reqTargetRateDTO){
         jwtService.validateTokenAndGetMember(authorizationHeader);
         exchgService.setTargetRateAdd(reqTargetRateDTO);
-        return ResApiResultDTO.success(ResponseCode.TARGET_CREATE_SUCCESS.getMessage(),null);
+        return ResApiResultDTO.success(null, ResponseCode.TARGET_CREATE_SUCCESS.getMessage());
     }
 
     // 환율 알림 삭제
@@ -65,7 +61,7 @@ public class ExchgController {
     public ResApiResultDTO<String> setTargetRateDelete(@RequestHeader("Authorization") String authorizationHeader, @PathVariable("tagId") Long tagId){
         jwtService.validateTokenAndGetMember(authorizationHeader);
         exchgService.setTargetRateDelete(tagId);
-        return ResApiResultDTO.success(ResponseCode.TARGET_DELETE_SUCCESS.getMessage(),null);
+        return ResApiResultDTO.success(null ,ResponseCode.TARGET_DELETE_SUCCESS.getMessage());
 
     }
 

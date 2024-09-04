@@ -50,14 +50,14 @@ public class MemberController {
     @PostMapping("check")
     public ResApiResultDTO<String> getEmailFind(@RequestBody ReqMemberDTO reqMemberDTO){
         memberService.getEmailFind(reqMemberDTO);
-        return ResApiResultDTO.success(ResponseCode.USER_ALREADY_EXIST.getMessage(),null);
+        return ResApiResultDTO.success(null, ResponseCode.USER_EMAIL_SUCCESS.getMessage());
     }
 
     // 회원가입
     @PostMapping("create")
     public ResApiResultDTO<Object> setMemberAdd(@RequestBody ReqMemberDTO reqMemberDTO)throws Exception{
         memberService.setMemberAdd(reqMemberDTO);
-        return ResApiResultDTO.success(ResponseCode.INTERNAL_SERVER_ERROR.getMessage(),null);
+        return ResApiResultDTO.success(null, ResponseCode.USER_ADD_SUCCESS.getMessage());
     }
 
 }

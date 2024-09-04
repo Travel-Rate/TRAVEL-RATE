@@ -23,7 +23,7 @@ public class MemberService {
     // 아이디 중복확인
     public void getEmailFind(ReqMemberDTO reqMemberDTO){
         if(memberRepository.existsByEmail(reqMemberDTO.getEmail())){
-            throw new BusinessExceptionHandler(ResponseCode.USER_ALREADY_EXIST);
+            throw new BusinessExceptionHandler(ResponseCode.EMAIL_ALREADY_EXIST);
         }
     }
 
