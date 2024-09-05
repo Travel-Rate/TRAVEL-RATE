@@ -2,6 +2,7 @@ package com.travel.rate.controller;
 
 import com.travel.rate.domain.Member;
 import com.travel.rate.dto.member.ReqLoginDTO;
+import com.travel.rate.dto.member.ResLoginDTO;
 import com.travel.rate.dto.req.ReqMemberDTO;
 import com.travel.rate.dto.res.ResApiResultDTO;
 import com.travel.rate.dto.res.ResponseCode;
@@ -28,7 +29,8 @@ public class MemberController {
     private final JwtService jwtService;
 
     @PostMapping("login")
-    public ResApiResultDTO<String> login(@RequestBody ReqLoginDTO reqLoginDTO) {
+    public ResApiResultDTO<ResLoginDTO> login(@RequestBody ReqLoginDTO reqLoginDTO) {
+
         return ResApiResultDTO.dataOk(jwtService.generateAccessToken(reqLoginDTO), "로그인 성공");
     }
 

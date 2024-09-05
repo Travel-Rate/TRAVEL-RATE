@@ -2,6 +2,7 @@ package com.travel.rate.service;
 
 import com.travel.rate.domain.Member;
 import com.travel.rate.dto.member.ReqLoginDTO;
+import com.travel.rate.dto.member.ResLoginDTO;
 import com.travel.rate.dto.res.ResponseCode;
 import com.travel.rate.exception.BusinessExceptionHandler;
 import com.travel.rate.repository.MemberRepository;
@@ -22,7 +23,8 @@ public class JwtService {
     private final JWTUtill jwtUtill;
     private final PasswordEncoder passwordEncoder;
 
-    public String generateAccessToken(ReqLoginDTO dto){
+    public ResLoginDTO generateAccessToken(ReqLoginDTO dto){
+        ResLoginDTO resLoginDTO = new ResLoginDTO();
         String accessToken = "";
             Member entity = memberRepository.findByEmail(dto.getEmail());
             log.info("member = {}", entity.getEmail());
@@ -35,8 +37,10 @@ public class JwtService {
             entity.setAtk(accessToken);
 
             memberRepository.save(entity);
+            resLoginDTO.setAccessToken(accessToken);
+            resLoginDTO.setId(entity.getMemId());
 
-        return accessToken;
+        return resLoginDTO;
     }
 
     public Map<String, Object> converToMap(Member entity){
