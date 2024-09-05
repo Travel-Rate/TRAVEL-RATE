@@ -2,8 +2,10 @@ package com.travel.rate.service;
 
 import com.travel.rate.domain.Country;
 import com.travel.rate.domain.Currency;
+import com.travel.rate.dto.res.ResponseCode;
 import com.travel.rate.dto.travel.ReqTravelDTO;
 import com.travel.rate.dto.travel.ResTravelDTO;
+import com.travel.rate.exception.BusinessExceptionHandler;
 import com.travel.rate.repository.ContinentRepository;
 import com.travel.rate.utils.ExchangeUtils;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,8 @@ public class TravelService {
     private final ExchangeUtils exchangeUtils;
 
     public List<ResTravelDTO> makeCountryRecommandation(ReqTravelDTO dto){
+        if(dto.getBudget()==0) throw new BusinessExceptionHandler(ResponseCode.BUDGET_CANNOT_BE_ZERO);
+
         // 수출입은행 환율 조회값 <통화코드, 환율>
         Map<String, Double> map = exchangeUtils.getExchgMap();
         log.info("{}", map);

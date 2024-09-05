@@ -38,6 +38,7 @@ public enum ResponseCode {
     EMAIL_ALREADY_EXIST(HttpStatus.CONFLICT, false, "이미 사용중인 이메일입니다."),
     TARGET_ADD_FAIL(HttpStatus.CONFLICT, false, "더이상 알림 설정을 하실 수 없습니다."),
     WRONG_PASSWORD(HttpStatus.CONFLICT, false, "올바르지 않은 비밀번호 입니다."),
+    BUDGET_CANNOT_BE_ZERO(HttpStatus.CONFLICT, false, "예산은 0 이상이여야 합니다."),
 
     // 500 Internal Server Error
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, false, "서버에 오류가 발생하였습니다."),
