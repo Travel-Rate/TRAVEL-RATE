@@ -78,9 +78,9 @@ public class ExchangeUtils {
             // 예외 처리
             e.printStackTrace();
             return null;
-        } catch (IllegalArgumentException e){
+        } /*catch (IllegalArgumentException e){
             throw  new BusinessExceptionHandler(ResponseCode.RATE_NOT_FOUND);
-        }
+        }*/
     }
 
     // 실시간 환율 전체 정보
