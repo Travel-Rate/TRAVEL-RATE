@@ -49,7 +49,7 @@ public class JwtService {
     }
 
     public boolean logout(String accessToken){
-
+        accessToken = accessToken.split(" ")[1];
         Member entity = memberRepository.findByAtk(accessToken);
         if(entity==null){
             throw new BusinessExceptionHandler(ResponseCode.LOGOUTED_MEMBER_WARN);
