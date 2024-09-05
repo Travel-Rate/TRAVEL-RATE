@@ -49,7 +49,7 @@ public class JwtService {
     }
 
     public boolean logout(String accessToken){
-        accessToken = accessToken.split(" ")[1];
+        accessToken = accessToken.replace("Bearer ", "");
         Member entity = memberRepository.findByAtk(accessToken);
         if(entity==null){
             throw new BusinessExceptionHandler(ResponseCode.LOGOUTED_MEMBER_WARN);
@@ -60,7 +60,9 @@ public class JwtService {
     }
 
     public Map<String, Object> validateTokenAndGetMember(String accessToken){
-        accessToken = accessToken.split(" ")[1];
+        log.info(accessToken);
+        accessToken = accessToken.replace("Bearer ", "");
+        log.info(accessToken);
         Member entity = memberRepository.findByAtk(accessToken);
         if(entity==null) throw new BusinessExceptionHandler(ResponseCode.INVALID_ACCESS_TOKEN);
         Map<String,Object> map = jwtUtill.validateToken(accessToken);

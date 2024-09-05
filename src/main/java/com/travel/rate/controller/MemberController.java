@@ -40,6 +40,7 @@ public class MemberController {
 
     @PostMapping("test")
     public ResApiResultDTO<Map> test(@RequestHeader("Authorization") String authorizationHeader){
+        log.info(authorizationHeader);
         Map<String, Object> map = jwtService.validateTokenAndGetMember(authorizationHeader);
         return ResApiResultDTO.success(map, "토큰 테스트");
     }

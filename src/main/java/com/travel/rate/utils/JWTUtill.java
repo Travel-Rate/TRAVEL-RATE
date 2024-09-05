@@ -53,7 +53,7 @@ public class JWTUtill {
     }
 
     public static Map<String, Object> validateToken(String token){
-        token = token.split(" ")[1];
+        token = token;
         Map<String, Object> claim = null;
 
         try{
