@@ -60,8 +60,7 @@ public class ExchangeUtils {
                 .retryWhen(Retry.backoff(3, Duration.ofSeconds(7))
                         .filter(throwable -> throwable instanceof WebClientRequestException ||
                                 throwable instanceof SSLHandshakeException ||
-                                throwable instanceof SocketException ||
-                                throwable instanceof IllegalArgumentException)
+                                throwable instanceof SocketException)
                 )
                 .doOnError(this::handleError)
                 .block();
@@ -92,11 +91,7 @@ public class ExchangeUtils {
             List<ResExchgDTO> resExchgDTOS = new ArrayList<>();
 
             for (JsonNode node : jsonNode) {
-            JsonNode contentNode = node.get("content");
 
-            if (contentNode == null || contentNode.isNull()) {
-                throw new BusinessExceptionHandler(ResponseCode.RATE_NOT_FOUND);
-            }
                 ResExchgDTO resExchgDTO = convertJsonToExchangeDto(node);
                 resExchgDTOS.add(resExchgDTO);
             }
