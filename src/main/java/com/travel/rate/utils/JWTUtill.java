@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.travel.rate.dto.res.ResponseCode;
 import com.travel.rate.exception.CustomJWTException;
+import com.travel.rate.repository.MemberRepository;
+import com.travel.rate.service.MemberService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Component;
 public class JWTUtill {
     @Value("${jwt-key}")
     String keyValue;
+    private final MemberRepository memberRepository;
 
     @PostConstruct
     public void init(){
@@ -43,9 +46,10 @@ public class JWTUtill {
 
         String jwtStr = Jwts.builder()
                 .setHeader(Map.of("typ", "jwt"))
+                .setSubject((String)valueMap.get("role"))
                 .setClaims(valueMap)
                 .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
-                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(day).toInstant()))
+                .setExpiration(Date.from(ZonedDateTime.now().plusDays(day).toInstant()))
                 .signWith(key)
                 .compact();
 
@@ -76,6 +80,19 @@ public class JWTUtill {
         }
 
         return claim;
+    }
+
+    public String validateTokenAndGetSubject(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(JWTUtill.key.getBytes())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean isTokenInDB(String token){
+        return memberRepository.findByAtk(token)==null ? false : true;
     }
 
 }

@@ -14,6 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,17 +38,20 @@ public class MemberController {
         return ResApiResultDTO.dataOk(jwtService.generateAccessToken(reqLoginDTO), "로그인 성공");
     }
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("logout")
     public ResApiResultDTO<String> logout(@RequestHeader("Authorization") String authorizationHeader){
         jwtService.logout(authorizationHeader);
         return ResApiResultDTO.success(null, "로그아웃 성공");
     }
 
+
+    @PreAuthorize("hasRole('USER') and (#memId.toString() == princial.username)")
     @PostMapping("test")
-    public ResApiResultDTO<Map> test(@RequestHeader("Authorization") String authorizationHeader){
-        log.info(authorizationHeader);
-        Map<String, Object> map = jwtService.validateTokenAndGetMember(authorizationHeader);
-        return ResApiResultDTO.success(map, "토큰 테스트");
+    public ResApiResultDTO<String> test(@AuthenticationPrincipal User user){
+        log.info("토큰테스트 유저={}",user.getUsername());
+        log.info("authorities = {}", user.getAuthorities());
+        return ResApiResultDTO.success(user.getUsername(), "토큰 테스트");
     }
 
 //    ----------------------------------- 기준선

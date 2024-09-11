@@ -47,7 +47,7 @@ public class JwtService {
         Map<String, Object> map = new HashMap<>();
         map.put("email", entity.getEmail());
         map.put("name", entity.getName());
-        map.put("mem_id", entity.getMemId());
+        map.put("memId", entity.getMemId());
         map.put("role", "ROLE_USER");
         return map;
     }
